@@ -27,8 +27,9 @@
           O campo é obrigatório
         </ion-item>
     </ion-list>
-    <button ion-button type="submit" [disabled]="!form.form.valid" block>Login</button>
-    <button ion-button full outline>Esqueci minha senha</button>
-    <button ion-button full outline (click)="novoUsuario()" >Criar conta</button> 
+    <button ion-button type="submit" [disabled]="!form.form.valid" block (click)="signin()">Login</button>    
+    <button class="botoesSecundarios" ion-item block (click)="esqueciMinhaSenha()">Esqueci minha senha</button>
+    <button class="botoesSecundarios" ion-item block (click)="novoUsuario()">Criar conta</button>
+
   </form>
 </ion-content> 

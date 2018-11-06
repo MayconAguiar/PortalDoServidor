@@ -11,9 +11,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
-import { ResetpasswordPage } from '../pages/resetpassword/resetpassword';
-
 import { AuthService } from '../providers/auth-service/auth-service';
+import { ResetpasswordPage } from '../pages/resetpassword/resetpassword';
 
 const firebaseConfig = {
     apiKey: "AIzaSyA84s0aMZaoElicMyVLYHpSqBy6jjLtELM",

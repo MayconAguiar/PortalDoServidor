@@ -1,32 +1,27 @@
-<!-- <ion-header>
-    <ion-navbar color="primary">
+<ion-header>
+    <ion-navbar>
       <ion-title>
-        Login
+        <ion-row>
+            <ion-col  align-self-center>
+                Portal do Servidor
+            </ion-col>
+            <ion-col>
+                <button float-right ion-button icon-start (click)="sair()">
+                    <ion-icon name="log-out"></ion-icon>
+                    <!-- <ion-icon name="sair" ></ion-icon> -->
+                    Sair
+                  </button>
+            </ion-col>
+            
+            <!-- <ion-col><button ion-button small block (click)="sair()">Sair</button></ion-col> -->
+        </ion-row>
+        
       </ion-title>
     </ion-navbar>
   </ion-header>
 <ion-content padding>
-  
-  <form #form="ngForm" novalidate>
-    <ion-list>
-      <ion-item>
-        <ion-label stacked>Email</ion-label>
-        <ion-input type="text" class="form-control" placeholder="Entre com o email" 
-        [(ngModel)]="user.email" name="email" required #email="ngModel">></ion-input>
-      </ion-item>
-      <ion-item *ngIf='email.errors && (email.dirty || email.touched)' class="text-danger">
-        O campo é obrigatório
-      </ion-item>
-      <ion-item>
-        <ion-label stacked>Senha</ion-label>
-        <ion-input type="password" class="form-control" placeholder="Entre com a senha" 
-        [(ngModel)]="user.senha" name="senha" required #senha="ngModel"></ion-input>
-      </ion-item>
-      <ion-item *ngIf='senha.errors && (senha.dirty || senha.touched)' class="text-danger">
-          O campo é obrigatório
-        </ion-item>
-    </ion-list>
-    <button ion-button type="submit" [disabled]="!form.form.valid" block>Login</button>
-  </form>
+  <ion-item>
+      
+  </ion-item>
 </ion-content>
- -->
+

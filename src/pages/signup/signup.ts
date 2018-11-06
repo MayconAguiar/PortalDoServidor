@@ -29,7 +29,7 @@ export class SignupPage {
       .then((user: any) => {
         toast.setMessage('Usuário criado com sucesso.');
         toast.present();
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.pop();
       })
       .catch(err => {
         if (err.code == "auth/email-already-in-use") {
