@@ -1,0 +1,3 @@
+ionic start PortalDoServidorCamaraGyn blank
+ionic cordova build --release android
+ionic serve
