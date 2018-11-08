@@ -10,18 +10,30 @@
                     <ion-icon name="log-out"></ion-icon>
                     <!-- <ion-icon name="sair" ></ion-icon> -->
                     Sair
-                  </button>
+                </button>
+                <button float-right ion-button icon-start (click)="profile()">
+                  <ion-icon name="log-out"></ion-icon>
+                  <!-- <ion-icon name="sair" ></ion-icon> -->
+                  Perfil
+                </button>
             </ion-col>
-            
+
             <!-- <ion-col><button ion-button small block (click)="sair()">Sair</button></ion-col> -->
         </ion-row>
-        
+
       </ion-title>
     </ion-navbar>
   </ion-header>
-<ion-content padding>
+<!-- <ion-content padding *ngIf="perfil | async as profile">
+
   <ion-item>
-      
+      {{ profile.apelido }}
+  </ion-item>
+  <ion-item>
+      {{ profile.cpf }}
   </ion-item>
 </ion-content>
+ -->
+<ion-content>
 
+</ion-content>

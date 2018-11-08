@@ -13,6 +13,10 @@ import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { AuthService } from '../providers/auth-service/auth-service';
 import { ResetpasswordPage } from '../pages/resetpassword/resetpassword';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { ProfileService } from '../providers/profile/profile-service';
+import { ProfilePage } from '../pages/profile/profile';
+import { HttpClientModule } from '@angular/common/http';
 
 const firebaseConfig = {
     apiKey: "AIzaSyA84s0aMZaoElicMyVLYHpSqBy6jjLtELM",
@@ -29,13 +33,16 @@ const firebaseConfig = {
     HomePage,
     SigninPage,
     SignupPage,
-    ResetpasswordPage
+    ResetpasswordPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -43,14 +50,16 @@ const firebaseConfig = {
     HomePage,
     SigninPage,
     SignupPage,
-    ResetpasswordPage
+    ResetpasswordPage,
+    ProfilePage
   ],
   providers: [
     AngularFireAuth,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthService
+    AuthService,
+    ProfileService
   ]
 })
 export class AppModule {}

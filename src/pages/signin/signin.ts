@@ -20,8 +20,8 @@ export class SigninPage {
   constructor(public navCtrl: NavController, private toastCtrl: ToastController, private authService: AuthService) {
   }
 
-  novoUsuario() {    
-    this.navCtrl.push(SignupPage);    
+  novoUsuario() {
+    this.navCtrl.push(SignupPage);
   }
 
   esqueciMinhaSenha() {
@@ -29,10 +29,10 @@ export class SigninPage {
   }
 
   signin() {
-    
+
     const toast = this.toastCtrl.create({duration: 3000, position: 'bottom'});
 
-    if (this.form.form.valid){      
+    if (this.form.form.valid){
       this.authService.signin(this.user)
       .then(()=> this.navCtrl.setRoot(HomePage))
       .catch(err => {
@@ -51,11 +51,11 @@ export class SigninPage {
         else {
           toast.setMessage('Ocorreu um problema.');
           console.log(err);
-        }        
+        }
         toast.present();
       });
-      
-      
+
+
     }
   }
 }

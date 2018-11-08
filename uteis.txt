@@ -1,3 +1,7 @@
 ionic start PortalDoServidorCamaraGyn blank
 ionic cordova build --release android
 ionic serve
+
+
+How to Connect Firebase Users to their Data - 3 Methods
+https://youtu.be/2ciHixbc4HE

@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Perfil
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+
+<form #form="ngForm" novalidate>
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Apelido</ion-label>
+      <ion-input type="text" class="form-control"
+      [(ngModel)]="perfil.apelido" name="apelido" required #apelido="ngModel">></ion-input>
+    </ion-item>
+    <ion-item *ngIf='apelido.errors && (apelido.dirty || apelido.touched)' class="text-danger">
+      O campo é obrigatório
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Cpf</ion-label>
+      <ion-input type="text" class="form-control"
+      [(ngModel)]="perfil.cpf" name="cpf" required #cpf="ngModel"></ion-input>
+    </ion-item>
+    <ion-item *ngIf='cpf.errors && (cpf.dirty || cpf.touched)' class="text-danger">
+        O campo é obrigatório
+      </ion-item>
+  </ion-list>
+  <button ion-button type="submit" [disabled]="!form.form.valid" block (click)="salve()">Salve</button>
+</form>
+</ion-content>
+
