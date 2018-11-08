@@ -1,8 +1,8 @@
 <div *ngFor="let resumo of resumos | async; let i = index">
-  <ion-card>
+  <ion-card class="cardComponente">
       <ion-card-header>
           <ion-row>
-              <ion-col  float-left>
+              <ion-col class="titulo" float-left>
                   Ultimo Pagamento
               </ion-col>
               <ion-col>
@@ -13,20 +13,23 @@
           </ion-row>
       </ion-card-header>
       <ion-card-content>
-        <p>
-            Referência: {{ resumo?.mes | date: 'MM/yyyy'}}
-        </p>
-        <p>
-            Salário Bruto: {{ resumo?.salarioBruto | currencyFormat}}
-        </p>
-        <p>
-            Descontos: {{ resumo?.descontos | currencyFormat }}
-        </p>
-        <p>
-            Salário Líquido: {{ resumo?.salarioLiquido | currencyFormat }}
-        </p>
+          <ion-row class="descricao">
+              <ion-col>Referência</ion-col>
+              <ion-col>Salário Bruto</ion-col>
+              <ion-col>Descontos</ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col>{{ resumo?.mes | date: 'MM/yyyy'}}</ion-col>
+              <ion-col>{{ resumo?.salarioBruto | currencyFormat}}</ion-col>
+              <ion-col>{{ resumo?.descontos | currencyFormat }}</ion-col>
+          </ion-row>
       </ion-card-content>
-
+      <ion-card-content class="footer">
+        <ion-row>
+            <ion-col class="salarioLiquidoDescricao">Salário Líquido</ion-col>
+            <ion-col class="salarioLiquidoValor">{{ resumo?.salarioLiquido | currencyFormat }}</ion-col>
+        </ion-row>
+    </ion-card-content>
   </ion-card>
 </div>
 

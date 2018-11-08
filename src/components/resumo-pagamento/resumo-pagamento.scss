@@ -1,3 +1,30 @@
-resumo-pagamento {
-
+.footer {
+  background-color: lightgray;
+  // border-bottom-left-radius: 10px;
+  // border-bottom-right-radius: 10px;
 }
+
+.titulo {
+  font-weight: 500;
+}
+
+.salarioLiquidoDescricao {
+  text-align: right;
+  color: gray;
+  font-size: 12px;
+}
+
+.descricao {
+  color: gray;
+  font-size: 12px;
+}
+
+.salarioLiquidoValor {
+  color: green;
+  text-align: right;
+}
+
+// .cardComponente {
+//   border: 1px solid lightgray;
+//   border-radius: 10px;
+// }
