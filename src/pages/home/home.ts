@@ -4,8 +4,9 @@ import { SigninPage } from '../signin/signin';
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ProfilePage } from '../profile/profile';
-// import { ProfileService } from '../../providers/profile/profile-service';
-
+import { ProfileService } from '../../providers/profile/profile-service';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { Profile } from '../../providers/profile/profile';
 
 @Component({
   selector: 'page-home',
@@ -14,20 +15,32 @@ import { ProfilePage } from '../profile/profile';
 export class HomePage {
 
   userId;
-  //perfil: Observable<Profile>
+  perfil: Profile;
+  perfilCarregado: Observable<boolean>;
+  subjectPerfil = new BehaviorSubject<boolean>(false);
 
   constructor(
     public navCtrl: NavController,
     private authService: AuthService,
-    private angularFireAuth: AngularFireAuth)
-    // ,
-    // private profileService: ProfileService)
+    private angularFireAuth: AngularFireAuth,
+    private profileService: ProfileService)
     {
+      this.perfilCarregado = this.subjectPerfil.asObservable();
       this.angularFireAuth.authState.subscribe(user => {
         if(user) {
           this.userId = user.uid;
-          //this.perfil = this.profileService.obtenha(this.userId).valueChanges();
+
+          this.profileService.obtenha(this.userId)
+          .valueChanges()
+          .subscribe(x => {
+            this.perfil = x || new Profile();
+            console.log(this.perfil);
+            this.subjectPerfil.next(true);
+            // perfilObservable.unsubscribe();
+          });
+
         }
+        // observableUser.unsubscribe();
       });
   }
 
@@ -39,5 +52,4 @@ export class HomePage {
   profile() {
     this.navCtrl.push(ProfilePage, { userId: this.userId });
   }
-
 }

@@ -20,14 +20,17 @@ export class ProfilePage {
     public navParams: NavParams,
     private profileService: ProfileService) {
       this.userId = this.navParams.get("userId");
-      this.profileService.obtenha(this.userId).valueChanges().subscribe(x => {
-        this.perfil = x == undefined ? new Profile() : x;
+      const observableProfile = this.profileService.obtenha(this.userId).valueChanges().subscribe(x => {
+        this.perfil = x || new Profile();
+
+        observableProfile.unsubscribe();
       });
   }
 
-  salve() {
+  salvar() {
     if(this.form.form.valid){
       this.profileService.salve(this.userId, this.perfil);
+      this.navCtrl.pop();
     }
   }
 }

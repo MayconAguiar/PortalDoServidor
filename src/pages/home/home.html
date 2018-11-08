@@ -12,7 +12,7 @@
                     Sair
                 </button>
                 <button float-right ion-button icon-start (click)="profile()">
-                  <ion-icon name="log-out"></ion-icon>
+                  <ion-icon name="card"></ion-icon>
                   <!-- <ion-icon name="sair" ></ion-icon> -->
                   Perfil
                 </button>
@@ -24,16 +24,16 @@
       </ion-title>
     </ion-navbar>
   </ion-header>
-<!-- <ion-content padding *ngIf="perfil | async as profile">
-
-  <ion-item>
-      {{ profile.apelido }}
-  </ion-item>
-  <ion-item>
-      {{ profile.cpf }}
-  </ion-item>
+<ion-content padding>
+  <div *ngIf="perfilCarregado | async">
+    <ion-list>
+      <ion-item>
+          Olá {{ perfil.apelido }}
+      </ion-item>
+      <ion-item>
+          {{ perfil.cpf }}
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>
- -->
-<ion-content>
 
-</ion-content>
