@@ -35,6 +35,7 @@ export class ResumoPagamentoComponent implements AfterViewInit {
           this.subjectresumo.next(lista);
           this.ref.detectChanges();
           //this.resumo = x;
+          //teste
       });
     })
     
