@@ -7,6 +7,8 @@ import { ProfilePage } from '../profile/profile';
 import { ProfileService } from '../../providers/profile/profile-service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Profile } from '../../providers/profile/profile';
+import { PagamentoService } from '../../providers/pagamento/pagamento-service';
+import { Resumo } from '../../providers/pagamento/resumo';
 
 @Component({
   selector: 'page-home',
@@ -18,14 +20,19 @@ export class HomePage {
   perfil: Profile;
   perfilCarregado: Observable<boolean>;
   subjectPerfil = new BehaviorSubject<boolean>(false);
+  resumo: Resumo;
+  resumoCarregado: Observable<boolean>;
+  subjectResumo = new BehaviorSubject<boolean>(false);
 
   constructor(
     public navCtrl: NavController,
     private authService: AuthService,
     private angularFireAuth: AngularFireAuth,
-    private profileService: ProfileService)
+    private profileService: ProfileService,
+    private pagamentoService: PagamentoService)
     {
       this.perfilCarregado = this.subjectPerfil.asObservable();
+      this.resumoCarregado = this.subjectResumo.asObservable();
       this.angularFireAuth.authState.subscribe(user => {
         if(user) {
           this.userId = user.uid;
@@ -37,6 +44,13 @@ export class HomePage {
             console.log(this.perfil);
             this.subjectPerfil.next(true);
             // perfilObservable.unsubscribe();
+          });
+
+          const observableResumo = this.pagamentoService.obtenhaResumo(this.userId)
+          .subscribe(resumo =>{
+            this.resumo = resumo;
+            this.subjectResumo.next(true);
+            //observableResumo.unsubscribe();
           });
 
         }
@@ -51,5 +65,8 @@ export class HomePage {
 
   profile() {
     this.navCtrl.push(ProfilePage, { userId: this.userId });
+  }
+
+  pagamentos() {
   }
 }

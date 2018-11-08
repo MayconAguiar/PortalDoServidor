@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import localeBR from '@angular/common/locales/pt';
+import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -17,6 +19,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { ProfileService } from '../providers/profile/profile-service';
 import { ProfilePage } from '../pages/profile/profile';
 import { HttpClientModule } from '@angular/common/http';
+import { PagamentoService } from '../providers/pagamento/pagamento-service';
+import { PipesModule } from '../pipes/pipes.module';
 
 const firebaseConfig = {
     apiKey: "AIzaSyA84s0aMZaoElicMyVLYHpSqBy6jjLtELM",
@@ -26,6 +30,8 @@ const firebaseConfig = {
     storageBucket: "portaldoservidor-fc6d8.appspot.com",
     messagingSenderId: "1033942276380"
 }
+
+registerLocaleData(localeBR);
 
 @NgModule({
   declarations: [
@@ -42,7 +48,8 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    HttpClientModule
+    HttpClientModule,
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -59,7 +66,9 @@ const firebaseConfig = {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,
-    ProfileService
+    ProfileService,
+    PagamentoService,
+    { provide: LOCALE_ID, useValue: 'pt-BR'}
   ]
 })
 export class AppModule {}

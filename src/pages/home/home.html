@@ -9,12 +9,17 @@
                 <button float-right ion-button icon-start (click)="sair()">
                     <ion-icon name="log-out"></ion-icon>
                     <!-- <ion-icon name="sair" ></ion-icon> -->
-                    Sair
+                    <!-- Sair -->
                 </button>
                 <button float-right ion-button icon-start (click)="profile()">
                   <ion-icon name="card"></ion-icon>
                   <!-- <ion-icon name="sair" ></ion-icon> -->
-                  Perfil
+                  <!-- Perfil -->
+                </button>
+                <button float-right ion-button icon-start (click)="pagamentos()">
+                    <ion-icon name="logo-usd"></ion-icon>
+                    <!-- <ion-icon name="sair" ></ion-icon> -->
+                    <!-- Perfil -->
                 </button>
             </ion-col>
 
@@ -26,14 +31,48 @@
   </ion-header>
 <ion-content padding>
   <div *ngIf="perfilCarregado | async">
-    <ion-list>
+      <ion-card>
+          <ion-card-header>
+              Olá {{ perfil.apelido }}
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>
+                {{ perfil.cpf }}
+            </p>
+          </ion-card-content>
+
+        </ion-card>
+    <!-- <ion-list>
       <ion-item>
           Olá {{ perfil.apelido }}
       </ion-item>
       <ion-item>
           {{ perfil.cpf }}
       </ion-item>
-    </ion-list>
+    </ion-list> -->
+  </div>
+  <div *ngIf="resumoCarregado | async">
+    <ion-card>
+        <ion-card-header>
+            Ultimo Pagamento
+        </ion-card-header>
+        <ion-card-content>
+          <p>
+              Referência: {{ resumo.mes | date: 'MM/yyyy'}}
+          </p>
+          <p>
+              Salário Bruto: {{ resumo.salarioBruto | currencyFormat}}
+          </p>
+          <p>
+              Descontos: {{ resumo.descontos | currencyFormat }}
+          </p>
+          <p>
+              Salário Líquido: {{ resumo.salarioLiquido | currencyFormat }}
+          </p>
+        </ion-card-content>
+
+    </ion-card>
   </div>
 </ion-content>
 
