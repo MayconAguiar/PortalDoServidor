@@ -43,47 +43,7 @@
           </ion-card-content>
 
         </ion-card>
-    <!-- <ion-list>
-      <ion-item>
-          Olá {{ perfil.apelido }}
-      </ion-item>
-      <ion-item>
-          {{ perfil.cpf }}
-      </ion-item>
-    </ion-list> -->
   </div>
-  <div *ngIf="resumoCarregado | async">
-    <ion-card>
-        <ion-card-header>
-            <ion-row>
-                <ion-col  float-left>
-                    Ultimo Pagamento
-                </ion-col>
-                <ion-col>
-                    <button float-right ion-button icon-start (click)="emitirPdf()">
-                        <ion-icon name="document"></ion-icon>
-                        <!-- <ion-icon name="sair" ></ion-icon> -->
-                        <!-- Sair -->
-                    </button>
-                </ion-col>
-            </ion-row>
-        </ion-card-header>
-        <ion-card-content>
-          <p>
-              Referência: {{ resumo.mes | date: 'MM/yyyy'}}
-          </p>
-          <p>
-              Salário Bruto: {{ resumo.salarioBruto | currencyFormat}}
-          </p>
-          <p>
-              Descontos: {{ resumo.descontos | currencyFormat }}
-          </p>
-          <p>
-              Salário Líquido: {{ resumo.salarioLiquido | currencyFormat }}
-          </p>
-        </ion-card-content>
-
-    </ion-card>
-  </div>
+  <page-resumo [userId]="userIdObservable" ></page-resumo>
 </ion-content>
 

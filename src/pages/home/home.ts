@@ -20,9 +20,9 @@ export class HomePage {
   perfil: Profile;
   perfilCarregado: Observable<boolean>;
   subjectPerfil = new BehaviorSubject<boolean>(false);
-  resumo: Resumo;
-  resumoCarregado: Observable<boolean>;
-  subjectResumo = new BehaviorSubject<boolean>(false);
+  subjectId = new BehaviorSubject<any>(null);
+  userIdObservable = this.subjectId.asObservable();
+
 
   constructor(
     public navCtrl: NavController,
@@ -32,7 +32,7 @@ export class HomePage {
     private pagamentoService: PagamentoService)
     {
       this.perfilCarregado = this.subjectPerfil.asObservable();
-      this.resumoCarregado = this.subjectResumo.asObservable();
+
       this.angularFireAuth.authState.subscribe(user => {
         if(user) {
           this.userId = user.uid;
@@ -46,13 +46,7 @@ export class HomePage {
             // perfilObservable.unsubscribe();
           });
 
-          const observableResumo = this.pagamentoService.obtenhaResumo(this.userId)
-          .subscribe(resumo =>{
-            this.resumo = resumo;
-            this.subjectResumo.next(true);
-            //observableResumo.unsubscribe();
-          });
-
+          this.subjectId.next(this.userId);
         }
         // observableUser.unsubscribe();
       });
@@ -68,9 +62,5 @@ export class HomePage {
   }
 
   pagamentos() {
-  }
-
-  emitirPdf() {
-
   }
 }
