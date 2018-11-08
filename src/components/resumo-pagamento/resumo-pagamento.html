@@ -1,0 +1,32 @@
+<div *ngFor="let resumo of resumos | async; let i = index">
+  <ion-card>
+      <ion-card-header>
+          <ion-row>
+              <ion-col  float-left>
+                  Ultimo Pagamento
+              </ion-col>
+              <ion-col>
+                  <button float-right ion-button icon-start (click)="emitirPdf()">
+                      <ion-icon name="document"></ion-icon>
+                  </button>
+              </ion-col>
+          </ion-row>
+      </ion-card-header>
+      <ion-card-content>
+        <p>
+            Referência: {{ resumo?.mes | date: 'MM/yyyy'}}
+        </p>
+        <p>
+            Salário Bruto: {{ resumo?.salarioBruto | currencyFormat}}
+        </p>
+        <p>
+            Descontos: {{ resumo?.descontos | currencyFormat }}
+        </p>
+        <p>
+            Salário Líquido: {{ resumo?.salarioLiquido | currencyFormat }}
+        </p>
+      </ion-card-content>
+
+  </ion-card>
+</div>
+

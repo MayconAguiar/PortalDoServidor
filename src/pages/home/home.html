@@ -29,21 +29,38 @@
       </ion-title>
     </ion-navbar>
   </ion-header>
-<ion-content padding>
-  <div *ngIf="perfilCarregado | async">
-      <ion-card>
-          <ion-card-header>
-              Olá {{ perfil.apelido }}
-          </ion-card-header>
+  <ion-content padding>
+    <div *ngIf="dadosIniciais | async">
+   
+        <ion-card>
+            <ion-card-header>
+                Olá {{ perfil.apelido }}
+            </ion-card-header>
 
-          <ion-card-content>
-            <p>
-                {{ perfil.cpf }}
-            </p>
-          </ion-card-content>
-
+            <ion-card-content>
+                <p>
+                    {{ perfil.cpf }}
+                </p>
+            </ion-card-content>
         </ion-card>
+
+        <!-- <page-resumo userId="userId"></page-resumo> -->
+        <page-resumo [userId]="userIdObservable"></page-resumo>
+        <resumo-pagamento [userId]="userIdObservable"></resumo-pagamento>
+    </div>
+</ion-content>        
+<!-- <ion-content padding>
+    <div *ngIf="dadosIniciais | async">
+            <ion-content padding>
+                    
+            </ion-content>
+    </div> 
+</ion-content> -->
+  <!-- <div *ngIf="dadosIniciais | async">
+        <ion-content padding>
+                <page-resumo userId="userId"></page-resumo>
+        </ion-content>
   </div>
-  <page-resumo [userId]="userIdObservable" ></page-resumo>
-</ion-content>
+   -->
+
 

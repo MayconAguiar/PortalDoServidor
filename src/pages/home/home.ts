@@ -18,9 +18,9 @@ export class HomePage {
 
   userId;
   perfil: Profile;
-  perfilCarregado: Observable<boolean>;
-  subjectPerfil = new BehaviorSubject<boolean>(false);
-  subjectId = new BehaviorSubject<any>(null);
+  dadosIniciais: Observable<boolean>;  
+  subjectDadosIniciais = new BehaviorSubject<boolean>(false);
+  subjectId = new BehaviorSubject<any>({});
   userIdObservable = this.subjectId.asObservable();
 
 
@@ -31,24 +31,20 @@ export class HomePage {
     private profileService: ProfileService,
     private pagamentoService: PagamentoService)
     {
-      this.perfilCarregado = this.subjectPerfil.asObservable();
+      this.dadosIniciais = this.subjectDadosIniciais.asObservable();
 
       this.angularFireAuth.authState.subscribe(user => {
-        if(user) {
-          this.userId = user.uid;
+        if(user) {            
+            this.userId = user.uid;
+            this.profileService.obtenha(this.userId)
+            .valueChanges()
+            .subscribe(perfil => {
+                this.perfil = perfil || new Profile();
+                this.subjectDadosIniciais.next(true);
+                this.subjectId.next(this.userId);
 
-          this.profileService.obtenha(this.userId)
-          .valueChanges()
-          .subscribe(x => {
-            this.perfil = x || new Profile();
-            console.log(this.perfil);
-            this.subjectPerfil.next(true);
-            // perfilObservable.unsubscribe();
-          });
-
-          this.subjectId.next(this.userId);
-        }
-        // observableUser.unsubscribe();
+              });
+          }        
       });
   }
 

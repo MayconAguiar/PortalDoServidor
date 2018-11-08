@@ -18,18 +18,18 @@ export class ResumoPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private pagamentoService: PagamentoService) {
-     const observableId = this.userId.subscribe(id => {
-        if(id !== null) {
-          const observable = this.pagamentoService.obtenhaResumo(this.userId).subscribe(x => {
-            this.resumo = x || new Resumo();
-            this.carregado = true;
-            observable.unsubscribe();
-          });
-          observableId.unsubscribe();
-        }
-      })
+    private pagamentoService: PagamentoService) {    
+    
+    // console.log(this.userId);
 
+    const observable = this.pagamentoService.obtenhaResumo(this.userId).subscribe(x => {
+      this.resumo = x || new Resumo();
+      this.carregado = true;      
+    });
+  }
+
+  ionViewDidLoad() {
+    console.log(this.userId);
   }
 
   emitirPdf() {
