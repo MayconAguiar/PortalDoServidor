@@ -55,7 +55,18 @@
   <div *ngIf="resumoCarregado | async">
     <ion-card>
         <ion-card-header>
-            Ultimo Pagamento
+            <ion-row>
+                <ion-col  float-left>
+                    Ultimo Pagamento
+                </ion-col>
+                <ion-col>
+                    <button float-right ion-button icon-start (click)="emitirPdf()">
+                        <ion-icon name="document"></ion-icon>
+                        <!-- <ion-icon name="sair" ></ion-icon> -->
+                        <!-- Sair -->
+                    </button>
+                </ion-col>
+            </ion-row>
         </ion-card-header>
         <ion-card-content>
           <p>

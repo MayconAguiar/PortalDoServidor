@@ -69,4 +69,8 @@ export class HomePage {
 
   pagamentos() {
   }
+
+  emitirPdf() {
+
+  }
 }
