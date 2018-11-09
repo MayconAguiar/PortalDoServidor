@@ -1,22 +1,21 @@
 
   <ion-content class="conteudo">
-    <div class="principal">      
+    <div class="principal">
           <ion-row class="linha1">
-          
+            <h5 class="textoLinha2">Câmara Municipal de Goiânia</h5>
           </ion-row>
           <ion-row class="linha2">
-              <h5 class="textoLinha2">Teste</h5>
+              <h5 class="textoLinha2">Portal do Servidor</h5>
           </ion-row>
-    </div> 
+    </div>
     <div class="rodape">
-          <ion-row class="linha3"> 
+          <ion-row class="linha3">
             <ion-col class="colunaBotao">
-                <a class="botao">Entrar</a>
-                <!-- <button ion-button type="submit" block (click)="login()">Login</button> -->
+                <a class="botao" (click)="login()">Entrar</a>
             </ion-col>
             <ion-col class="colunaBotao">
-                <a class="botao">Cadastrar</a>
+                <a class="botao" (click)="novoUsuario()">Cadastrar</a>
             </ion-col>
-        </ion-row> 
+        </ion-row>
     </div>
   </ion-content>
