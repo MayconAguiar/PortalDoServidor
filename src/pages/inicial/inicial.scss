@@ -35,8 +35,8 @@
 
 .linha3 {
   height: 100%;
-  background: rgb(27, 26, 26);
-  color: lightcyan;
+  // background: rgb(27, 26, 26);
+  // background: primary;
 }
 
 .tituloInicial {
@@ -48,7 +48,7 @@
 }
 
 .conteudo {
-  background-image: linear-gradient(to bottom,#1f1515, white 49%, white 50%, #1f1515);
+  background-image: linear-gradient(to bottom, rgb(127, 194, 216), white 49%, white 60%, rgb(127, 194, 216));
   color: transparent;
   font-weight: 900;
 }
