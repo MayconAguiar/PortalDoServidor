@@ -3,7 +3,7 @@
       <ion-card-header>
           <ion-row>
               <ion-col class="titulo" float-left>
-                  Ultimo Pagamento
+                  Resumo Pagamento - {{ resumo?.mes | date: 'MMMM/yyyy'}}
               </ion-col>
               <ion-col>
                   <button float-right ion-button icon-start (click)="emitirPdf()">
@@ -14,12 +14,12 @@
       </ion-card-header>
       <ion-card-content>
           <ion-row class="descricao">
-              <ion-col>Referência</ion-col>
+              <ion-col>Data de Pagamento</ion-col>
               <ion-col>Salário Bruto</ion-col>
               <ion-col>Descontos</ion-col>
           </ion-row>
           <ion-row>
-              <ion-col>{{ resumo?.mes | date: 'MM/yyyy'}}</ion-col>
+              <ion-col>{{ resumo?.mes | date: 'dd/MM/yyyy'}}</ion-col>
               <ion-col>{{ resumo?.salarioBruto | currencyFormat}}</ion-col>
               <ion-col>{{ resumo?.descontos | currencyFormat }}</ion-col>
           </ion-row>

@@ -9,6 +9,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Profile } from '../../providers/profile/profile';
 import { PagamentoService } from '../../providers/pagamento/pagamento-service';
 import { Resumo } from '../../providers/pagamento/resumo';
+import { InicialPage } from '../inicial/inicial';
 
 @Component({
   selector: 'page-home',
@@ -18,7 +19,7 @@ export class HomePage {
 
   userId;
   perfil: Profile;
-  dadosIniciais: Observable<boolean>;  
+  dadosIniciais: Observable<boolean>;
   subjectDadosIniciais = new BehaviorSubject<boolean>(false);
   subjectId = new BehaviorSubject<any>({});
   userIdObservable = this.subjectId.asObservable();
@@ -34,7 +35,7 @@ export class HomePage {
       this.dadosIniciais = this.subjectDadosIniciais.asObservable();
 
       this.angularFireAuth.authState.subscribe(user => {
-        if(user) {            
+        if(user) {
             this.userId = user.uid;
             this.profileService.obtenha(this.userId)
             .valueChanges()
@@ -44,12 +45,12 @@ export class HomePage {
                 this.subjectId.next(this.userId);
 
               });
-          }        
+          }
       });
   }
 
   sair() {
-    this.navCtrl.setRoot(SigninPage);
+    this.navCtrl.setRoot(InicialPage);
     this.authService.sair();
   }
 

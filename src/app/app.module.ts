@@ -22,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PagamentoService } from '../providers/pagamento/pagamento-service';
 import { PipesModule } from '../pipes/pipes.module';
 import { ResumoPagamentoComponent } from '../components/resumo-pagamento/resumo-pagamento';
+import { InicialPage } from '../pages/inicial/inicial';
 
 const firebaseConfig = {
     apiKey: "AIzaSyA84s0aMZaoElicMyVLYHpSqBy6jjLtELM",
@@ -42,6 +43,7 @@ registerLocaleData(localeBR);
     SignupPage,
     ResetpasswordPage,
     ProfilePage,
+    InicialPage,
     ResumoPagamentoComponent
   ],
   imports: [
@@ -60,7 +62,8 @@ registerLocaleData(localeBR);
     SigninPage,
     SignupPage,
     ResetpasswordPage,
-    ProfilePage
+    ProfilePage,
+    InicialPage
   ],
   providers: [
     AngularFireAuth,

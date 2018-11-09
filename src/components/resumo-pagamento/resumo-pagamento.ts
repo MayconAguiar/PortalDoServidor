@@ -30,8 +30,7 @@ export class ResumoPagamentoComponent implements AfterViewInit, OnDestroy {
           this.subjectresumo.next(lista);
           this.ref.detectChanges();
       });
-    })
-
+    });
   }
 
   ngOnDestroy() {
