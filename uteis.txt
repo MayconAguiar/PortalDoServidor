@@ -1,7 +1,14 @@
 ionic start PortalDoServidorCamaraGyn blank
 ionic cordova build --release android
+
+ionic cordova emulate android
 ionic serve
 
-
+ionic state restore
 How to Connect Firebase Users to their Data - 3 Methods
 https://youtu.be/2ciHixbc4HE
+
+git config user.name "Maycon"
+git config user.email maycon.aguiar@gmail.com
+
+chrome://inspect/#devices

@@ -1,41 +1,38 @@
 <ion-header>
-    <ion-navbar>
-      <ion-title>
-        <ion-row>
-            <ion-col  align-self-center>
-                Portal do Servidor
-            </ion-col>
-            <ion-col>
-                <button float-right ion-button icon-start (click)="sair()">
-                    <ion-icon name="log-out"></ion-icon>
-                </button>
-                <button float-right ion-button icon-start (click)="profile()">
-                  <ion-icon name="card"></ion-icon>
-                </button>
-                <button float-right ion-button icon-start (click)="pagamentos()">
-                    <ion-icon name="logo-usd"></ion-icon>
-                </button>
-            </ion-col>
-        </ion-row>
-      </ion-title>
-    </ion-navbar>
+        
+        <ion-navbar>
+        <ion-title>
+            <ion-row>
+                
+                <ion-item class="foto">                        
+                    <ion-avatar item-start>
+                            <img src="{{ (perfilObservable | async)?.url }}" alt="">
+                    </ion-avatar>
+                </ion-item>                        
+                <ion-col  align-self-center class="titulo boasVindas" width-25>
+                    Olá, {{ (perfilObservable | async)?.apelido }}
+                </ion-col>
+                <ion-col class="icone" width-50>
+                    <button  float-right ion-button icon-start (click)="sair()">
+                        <ion-icon name="log-out"></ion-icon>
+                    </button>
+                    <button float-right ion-button icon-start (click)="profile()">
+                    <ion-icon name="card"></ion-icon>
+                    </button>
+                    <button float-right ion-button icon-start (click)="pagamentos()">
+                        <ion-icon name="logo-usd"></ion-icon>
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-title>
+        </ion-navbar>
+    
   </ion-header>
-  <ion-content padding>
-    <div *ngIf="dadosIniciais | async">
+  
+    <ion-content padding class="has-header">
+            
+            <dados-pessoais [perfil]="perfilObservable"></dados-pessoais>            
+            <resumo-pagamento [userId]="userIdObservable"></resumo-pagamento>
+        
+    </ion-content>
 
-        <ion-card>
-            <ion-card-header>
-                Olá {{ perfil.apelido }}
-            </ion-card-header>
-
-            <ion-card-content>
-                <p>
-                    {{ perfil.cpf }}
-                </p>
-            </ion-card-content>
-        </ion-card>
-
-
-        <resumo-pagamento [userId]="userIdObservable"></resumo-pagamento>
-    </div>
-</ion-content>

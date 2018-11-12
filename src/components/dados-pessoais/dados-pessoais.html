@@ -1,0 +1,10 @@
+<ion-card>
+    <ion-card-header class="titulo">
+            <ion-row>Dados Pessoais</ion-row>
+    </ion-card-header>            
+    
+    <ion-card-content padding class="has-header">                        
+        <ion-row>Nome: {{ (perfil | async)?.apelido }}</ion-row>        
+        <ion-row>Cpf: {{ (perfil | async)?.cpf }}</ion-row>                
+    </ion-card-content>
+</ion-card>

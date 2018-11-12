@@ -4,6 +4,7 @@ import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angular
 import { FirebaseApp } from 'angularfire2';
 import  * as firebase from 'firebase/app';
 import { Profile } from './profile';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 /*
   Generated class for the ProfileProvider provider.
@@ -16,7 +17,7 @@ export class ProfileService {
 
   constructor(public http: HttpClient,
     private angularFireDatabase: AngularFireDatabase,
-    private fb: FirebaseApp) {
+    private afStorage: AngularFireStorage) {
   }
 
   obtenha(userId): AngularFireObject<Profile> {
@@ -28,29 +29,51 @@ export class ProfileService {
   }
 
   uploadAndSave(userId, profile: Profile, fileToUpload: any){
-    let storageRef = this.fb.storage().ref();
+    let storageRef = this.afStorage;
     let basePath = '/profiles' + userId;
     profile.fullPath = basePath + "/" + profile.apelido + '.png';
 
-    // imagem base 64;
-    let imagem;
-    let uploadTask = storageRef.child(profile.fullPath).putString(imagem, 'base64');
 
-    uploadTask.on(
-    firebase.storage.TaskEvent.STATE_CHANGED,
-    (snapshot: any) => {
-      var progress = (snapshot.bytesTransfered / snapshot.totalBytes) * 100;
-      console.log(progress + "% done");
-    },
-    (error) => console.log(error),
-    () => {
-      profile.url = uploadTask.snapshot.downloadURL;
-      this.angularFireDatabase.object(`profiles/${userId}`).set(profile);
+    let uploadTask = storageRef.ref(profile.fullPath).putString(fileToUpload, 'base64');
+
+    // var subscribe = uploadTask.snapshotChanges()
+    // .subscribe((item)=> {
+      
+    // },
+    // error => {},
+    // (x) => {
+    //   x.ref.getDownloadURL().then(url => {
+    //     profile.url = url;
+    //     this.angularFireDatabase.object(`profiles/${userId}`).set(profile);
+    //   });      
+    // });
+    // .then(x => {      
+      
+    // })
+
+    uploadTask.then(uploadTask=> {
+      uploadTask.ref.getDownloadURL().then(url => {
+             profile.url = url;
+             this.angularFireDatabase.object(`profiles/${userId}`).set(profile);
+           });      
     });
+    
+    // .on(
+    // firebase.storage.TaskEvent.STATE_CHANGED,
+    // (snapshot: any) => {
+    //   var progress = (snapshot.bytesTransfered / snapshot.totalBytes) * 100;
+    //   console.log(progress + "% done");
+    // },
+    // (error) => console.log(error),
+    // () => {
+    //   profile.url = uploadTask.snapshot.downloadURL;
+    //   this.angularFireDatabase.object(`profiles/${userId}`).set(profile);
+    // });
   }
 
   removeFile(fullPath: string) {
-    let storageRef = this.fb.storage().ref();
-    storageRef.child(fullPath).delete();
+    let storageRef = this.afStorage;
+    storageRef.ref(fullPath).delete();
+    // storageRef.child(fullPath).delete();
   }
 }

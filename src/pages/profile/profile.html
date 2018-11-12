@@ -15,8 +15,11 @@
       </ion-avatar>
     </ion-item>
     <ion-item>
-       <img src="{{ imgPath }}" alt="Imagem do Perfil">
+      <div *ngIf="imgPath !=''">
+      <img src="{{ imgPath }}" alt="Imagem do Perfil">
+      </div> 
        <button ion-button block color="dark" (click)="escolherFoto()">EscolherFoto</button>
+      
     </ion-item>
     <ion-item>
       <ion-label stacked>Apelido</ion-label>

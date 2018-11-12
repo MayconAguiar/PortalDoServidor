@@ -9,6 +9,7 @@ import { ImagePicker } from '@ionic-native/image-picker';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -24,6 +25,7 @@ import { PagamentoService } from '../providers/pagamento/pagamento-service';
 import { PipesModule } from '../pipes/pipes.module';
 import { ResumoPagamentoComponent } from '../components/resumo-pagamento/resumo-pagamento';
 import { InicialPage } from '../pages/inicial/inicial';
+import { DadosPessoaisComponent } from '../components/dados-pessoais/dados-pessoais';
 
 const firebaseConfig = {
     apiKey: "AIzaSyA84s0aMZaoElicMyVLYHpSqBy6jjLtELM",
@@ -45,7 +47,8 @@ registerLocaleData(localeBR);
     ResetpasswordPage,
     ProfilePage,
     InicialPage,
-    ResumoPagamentoComponent
+    ResumoPagamentoComponent,
+    DadosPessoaisComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ registerLocaleData(localeBR);
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     HttpClientModule,
     PipesModule
   ],

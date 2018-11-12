@@ -23,6 +23,8 @@ export class HomePage {
   subjectDadosIniciais = new BehaviorSubject<boolean>(false);
   subjectId = new BehaviorSubject<any>({});
   userIdObservable = this.subjectId.asObservable();
+  subjectPerfil = new BehaviorSubject<any>({});
+  perfilObservable = this.subjectId.asObservable();
 
 
   constructor(
@@ -33,6 +35,7 @@ export class HomePage {
     private pagamentoService: PagamentoService)
     {
       this.dadosIniciais = this.subjectDadosIniciais.asObservable();
+      this.perfilObservable = this.subjectPerfil.asObservable();
 
       this.angularFireAuth.authState.subscribe(user => {
         if(user) {
@@ -43,7 +46,7 @@ export class HomePage {
                 this.perfil = perfil || new Profile();
                 this.subjectDadosIniciais.next(true);
                 this.subjectId.next(this.userId);
-
+                this.subjectPerfil.next(perfil);
               });
           }
       });
