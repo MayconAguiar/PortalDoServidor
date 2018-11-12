@@ -1,0 +1,10 @@
+C:\Program Files\Java\jdk1.8.0_161\bin
+keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore HelloWorld-release-unsigned.apk alias_name
+C:\Program Files (x86)\Android\android-sdk\build-tools\28.0.1
+zipalign -v 4 HelloWorld-release-unsigned.apk HelloWorld.apk
+
+emulator
+
+cannot find AVD SYSTEM PATH. Please define ANDROID_SDK_ROOT
+emulator -avd  C:\Users\Maycon\.android\avd\Pixel_XL_API_27.avd
