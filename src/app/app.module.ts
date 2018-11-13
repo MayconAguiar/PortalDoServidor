@@ -5,7 +5,7 @@ import { registerLocaleData } from '@angular/common';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { ImagePicker } from '@ionic-native/image-picker';
+import { Camera } from '@ionic-native/camera';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
@@ -79,7 +79,7 @@ registerLocaleData(localeBR);
     AuthService,
     ProfileService,
     PagamentoService,
-    ImagePicker,
+    Camera,
     { provide: LOCALE_ID, useValue: 'pt-BR'}
   ]
 })

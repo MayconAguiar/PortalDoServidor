@@ -6,7 +6,7 @@ zipalign -v 4 HelloWorld-release-unsigned.apk HelloWorld.apk
 
 C:\Program Files\Java\jdk1.8.0_161\bin
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore C:\Apps\PortalDoServidor\my-release-key.keystore C:\Desenvolvimento\PortalDoServidor\platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk alias_name
-
+C:\Program Files (x86)\Android\android-sdk\build-tools\28.0.1
 zipalign -v 4 C:\Desenvolvimento\PortalDoServidor\platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk C:\Apps\PortalDoServidor\PortalDoServidor.02.apk
 
 senha:portalrh

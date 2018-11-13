@@ -36,44 +36,16 @@ export class ProfileService {
 
     let uploadTask = storageRef.ref(profile.fullPath).putString(fileToUpload, 'base64');
 
-    // var subscribe = uploadTask.snapshotChanges()
-    // .subscribe((item)=> {
-      
-    // },
-    // error => {},
-    // (x) => {
-    //   x.ref.getDownloadURL().then(url => {
-    //     profile.url = url;
-    //     this.angularFireDatabase.object(`profiles/${userId}`).set(profile);
-    //   });      
-    // });
-    // .then(x => {      
-      
-    // })
-
     uploadTask.then(uploadTask=> {
       uploadTask.ref.getDownloadURL().then(url => {
              profile.url = url;
              this.angularFireDatabase.object(`profiles/${userId}`).set(profile);
-           });      
+           });
     });
-    
-    // .on(
-    // firebase.storage.TaskEvent.STATE_CHANGED,
-    // (snapshot: any) => {
-    //   var progress = (snapshot.bytesTransfered / snapshot.totalBytes) * 100;
-    //   console.log(progress + "% done");
-    // },
-    // (error) => console.log(error),
-    // () => {
-    //   profile.url = uploadTask.snapshot.downloadURL;
-    //   this.angularFireDatabase.object(`profiles/${userId}`).set(profile);
-    // });
   }
 
   removeFile(fullPath: string) {
     let storageRef = this.afStorage;
     storageRef.ref(fullPath).delete();
-    // storageRef.child(fullPath).delete();
   }
 }

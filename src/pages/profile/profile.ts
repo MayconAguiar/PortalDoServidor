@@ -3,7 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Profile } from '../../providers/profile/profile';
 import { ProfileService } from '../../providers/profile/profile-service';
 import { NgForm } from '@angular/forms';
-import { ImagePicker } from '@ionic-native/image-picker';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { ActionSheetController } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -22,8 +24,10 @@ export class ProfilePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public platform: Platform,
     private profileService: ProfileService,
-    private imagePicker: ImagePicker,
+    private camera: Camera,
+    public actionsheetCtrl: ActionSheetController,
     private ref: ChangeDetectorRef) {
       this.userId = this.navParams.get("userId");
       const observableProfile = this.profileService.obtenha(this.userId).valueChanges().subscribe(x => {
@@ -44,55 +48,62 @@ export class ProfilePage {
     }
   }
 
-  // uploadAndSave(){
-    
-  // }
+  alterarFoto() {
+    let actionSheet = this.actionsheetCtrl.create({
+          title: 'Opções',
+          cssClass: 'action-sheets-basic-page',
+          buttons: [
+            {
+              text: 'Tirar uma foto',
+              role: 'destructive',
+              icon: !this.platform.is('ios') ? 'ios-camera-outline' : null,
+              handler: () => {
+                this.takephoto();
+              }
+            },
+            {
+              text: 'Escolher foto na galeria',
+              icon: !this.platform.is('ios') ? 'ios-images-outline' : null,
+              handler: () => {
+                this.openGallery();
+              }
+            },
+      ]
+    });
+    actionSheet.present();
+  }
 
-  escolherFoto() {    
-     this.imagePicker.hasReadPermission()
-     .then(hasPermission => {
-       if (hasPermission){
-         this.pegarImagem();
-       } else {
-         this.solicitarPermissao();
-       }
-     }).catch(error => {
-       console.error('Erro ao verificar a permissão', error);
+  takephoto() {
+          const options: CameraOptions = {
+            quality: 100,
+            destinationType: this.camera.DestinationType.DATA_URL,
+            encodingType: this.camera.EncodingType.JPEG,
+            mediaType: this.camera.MediaType.PICTURE
+          }
+
+          this.camera.getPicture(options).then((imageData) => {
+            this.imgPath = 'data:image/jpeg;base64,' + imageData;
+            this.fileToUpload = imageData;
+            this.fezUpload = true;
+          }, (err) => {
+            // Handle error
+          })}
+
+openGallery() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM
+    };
+
+    this.camera.getPicture(options).then((imageData) => {
+    this.imgPath = 'data:image/jpeg;base64,' + imageData;
+    this.fileToUpload = imageData;
+    this.fezUpload = true;
+    }, (err) => {
+      // Handle error
     });
   }
-
-  solicitarPermissao() {
-    this.imagePicker.requestReadPermission()
-    .then(hasPermission => {
-      if (hasPermission){
-        this.pegarImagem();
-      } else {
-        console.error('Permissão negada');
-      }
-    }).catch(error => {
-      console.error('Erro ao verificar a permissão', error);
-    })
-  }
-
-  pegarImagem() {
-    debugger;
-    this.imagePicker.getPictures({
-      maximumImagesCount: 1,
-      outputType: 1 //base 64
-    })
-    .then(results => {
-      if (results.length > 0){
-        this.imgPath = 'data:image/png;base64,' + results[0];
-        this.fileToUpload = results[0];
-        this.fezUpload = true;
-      } else {
-        this.imgPath = '';
-        this.fileToUpload = null;
-      }
-      this.ref.detectChanges();
-    }).catch(error => {
-      console.error('Erro ao recuperar a imagem', error);
-    })
-  }
-
 }
