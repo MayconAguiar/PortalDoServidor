@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Profile } from '../../providers/profile/profile';
 import { ProfileService } from '../../providers/profile/profile-service';
@@ -23,7 +23,8 @@ export class ProfilePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private profileService: ProfileService,
-    private imagePicker: ImagePicker) {
+    private imagePicker: ImagePicker,
+    private ref: ChangeDetectorRef) {
       this.userId = this.navParams.get("userId");
       const observableProfile = this.profileService.obtenha(this.userId).valueChanges().subscribe(x => {
         this.perfil = x || new Profile();
@@ -88,6 +89,7 @@ export class ProfilePage {
         this.imgPath = '';
         this.fileToUpload = null;
       }
+      this.ref.detectChanges();
     }).catch(error => {
       console.error('Erro ao recuperar a imagem', error);
     })

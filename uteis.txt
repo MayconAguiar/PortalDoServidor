@@ -12,3 +12,8 @@ git config user.name "Maycon"
 git config user.email maycon.aguiar@gmail.com
 
 chrome://inspect/#devices
+
+#executar direto no celular
+#não pode estar instalado
+#debugar chrome://inspect/#devices
+ionic cordova run android --device --verbose
