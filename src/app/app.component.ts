@@ -10,8 +10,8 @@ import { InicialPage } from '../pages/inicial/inicial';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  // rootPage:any = InicialPage;
-  rootPage:any = SigninPage;
+  rootPage:any = InicialPage;
+  //rootPage:any = SigninPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

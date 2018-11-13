@@ -23,9 +23,12 @@ import { ProfilePage } from '../pages/profile/profile';
 import { HttpClientModule } from '@angular/common/http';
 import { PagamentoService } from '../providers/pagamento/pagamento-service';
 import { PipesModule } from '../pipes/pipes.module';
-import { ResumoPagamentoComponent } from '../components/resumo-pagamento/resumo-pagamento';
-import { InicialPage } from '../pages/inicial/inicial';
-import { DadosPessoaisComponent } from '../components/dados-pessoais/dados-pessoais';
+import { ComponentsModule } from '../components/components.module';
+import { InicialPageModule } from '../pages/inicial/inicial.module';
+import { ProfilePageModule } from '../pages/profile/profile.module';
+import { ResetpasswordPageModule } from '../pages/resetpassword/resetpassword.module';
+import { SigninPageModule } from '../pages/signin/signin.module';
+import { SignupPageModule } from '../pages/signup/signup.module';
 
 const firebaseConfig = {
     apiKey: "AIzaSyA84s0aMZaoElicMyVLYHpSqBy6jjLtELM",
@@ -41,14 +44,7 @@ registerLocaleData(localeBR);
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    SigninPage,
-    SignupPage,
-    ResetpasswordPage,
-    ProfilePage,
-    InicialPage,
-    ResumoPagamentoComponent,
-    DadosPessoaisComponent
+    HomePage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +54,13 @@ registerLocaleData(localeBR);
     AngularFireDatabaseModule,
     AngularFireStorageModule,
     HttpClientModule,
-    PipesModule
+    PipesModule,
+    ComponentsModule,
+    InicialPageModule,
+    ProfilePageModule,
+    ResetpasswordPageModule,
+    SigninPageModule,
+    SignupPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -67,8 +69,7 @@ registerLocaleData(localeBR);
     SigninPage,
     SignupPage,
     ResetpasswordPage,
-    ProfilePage,
-    InicialPage
+    ProfilePage
   ],
   providers: [
     AngularFireAuth,

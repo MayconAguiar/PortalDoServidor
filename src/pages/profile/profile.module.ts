@@ -11,4 +11,4 @@ import { ProfilePage } from './profile';
     IonicPageModule.forChild(ProfilePage),
   ],
 })
-export class ResetpasswordPageModule {}
+export class ProfilePageModule {}
