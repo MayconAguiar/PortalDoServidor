@@ -4,12 +4,15 @@ import { DadosPessoaisComponent } from './dados-pessoais/dados-pessoais';
 import { IonicModule } from 'ionic-angular';
 
 import { PipesModule } from '../pipes/pipes.module';
+import { ItemResumoPagamentoComponent } from './item-resumo-pagamento/item-resumo-pagamento';
 @NgModule({
 	declarations: [
     ResumoPagamentoComponent,
-    DadosPessoaisComponent],
+    DadosPessoaisComponent,
+    ItemResumoPagamentoComponent],
 	imports: [IonicModule, PipesModule],
 	exports: [ResumoPagamentoComponent,
-    DadosPessoaisComponent]
+    DadosPessoaisComponent,
+    ItemResumoPagamentoComponent]
 })
 export class ComponentsModule {}

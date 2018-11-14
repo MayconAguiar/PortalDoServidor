@@ -1,35 +1,17 @@
-<div *ngFor="let resumo of resumos | async; let i = index">
-  <ion-card class="cardComponente">
-      <ion-card-header>
-          <ion-row>
-              <ion-col class="titulo" float-left>
-                  Resumo Pagamento - {{ resumo?.mes | date: 'MMMM/yyyy'}}
-              </ion-col>
-              <ion-col>
-                  <button float-right ion-button icon-start (click)="emitirPdf()">
-                      <ion-icon name="document"></ion-icon>
-                  </button>
-              </ion-col>
-          </ion-row>
-      </ion-card-header>
-      <ion-card-content>
-          <ion-row class="descricao">
-              <ion-col>Data de Pagamento</ion-col>
-              <ion-col>Salário Bruto</ion-col>
-              <ion-col>Descontos</ion-col>
-          </ion-row>
-          <ion-row>
-              <ion-col>{{ resumo?.mes | date: 'dd/MM/yyyy'}}</ion-col>
-              <ion-col>{{ resumo?.salarioBruto | currencyFormat}}</ion-col>
-              <ion-col>{{ resumo?.descontos | currencyFormat }}</ion-col>
-          </ion-row>
-      </ion-card-content>
-      <ion-card-content class="footer">
-        <ion-row>
-            <ion-col class="salarioLiquidoDescricao">Salário Líquido</ion-col>
-            <ion-col class="salarioLiquidoValor">{{ resumo?.salarioLiquido | currencyFormat }}</ion-col>
-        </ion-row>
-    </ion-card-content>
-  </ion-card>
-</div>
 
+<ion-list>
+    <ion-item>
+        <ion-row>
+            <ion-col class="menuMes" *ngIf="resumoAnterior!=null" (click)="mesAnterior()">{{ resumoAnterior.mes | date: 'MMMM/yyyy' }}</ion-col>
+            <ion-col class="selecionado">{{ resumoAtual?.mes | date: 'MMMM/yyyy' }}</ion-col>
+            <ion-col class="menuMes" (click)="mesProximo()">{{ resumoProximo==null? '' : resumoProximo.mes | date: 'MMMM/yyyy' }}</ion-col>
+            <ion-col class="menuMes" *ngIf="resumoAnterior==null"></ion-col>
+        </ion-row>
+    </ion-item>
+    <ion-item>
+        <ion-slides [initialSlide]="atual" (ionSlideDidChange)="slideChanged()">
+            <ion-slide *ngFor="let resumo of resumosObservable | async; let i = index" >
+                <item-resumo-pagamento [resumo]="resumo"></item-resumo-pagamento>
+            </ion-slide>
+    </ion-slides>
+</ion-item>
