@@ -1,41 +1,62 @@
 <ion-header>
-        
+
         <ion-navbar>
         <ion-title>
             <ion-row>
-                
-                <ion-item class="foto">                        
+
+                <ion-item class="foto">
                     <ion-avatar item-start>
                             <img src="{{ (perfilObservable | async)?.url }}" alt="">
                     </ion-avatar>
-                </ion-item>                        
-                <ion-col  align-self-center class="titulo boasVindas" width-25>
+                </ion-item>
+                <ion-col  align-self-center class="titulo boasVindas" width-75>
                     Olá, {{ (perfilObservable | async)?.apelido }}
-                </ion-col>
-                <ion-col class="icone" width-50>
-                    <button  float-right ion-button icon-start (click)="sair()">
-                        <ion-icon name="log-out"></ion-icon>
-                    </button>
-                    <button float-right ion-button icon-start (click)="profile()">
-                    <ion-icon name="card"></ion-icon>
-                    </button>
-                    <button float-right ion-button icon-start (click)="pagamentos()">
-                        <ion-icon name="logo-usd"></ion-icon>
-                    </button>
                 </ion-col>
             </ion-row>
         </ion-title>
         </ion-navbar>
-    
+
   </ion-header>
-  
+
     <ion-content padding class="has-header">
-            
-            <dados-pessoais [perfil]="perfilObservable"></dados-pessoais>            
+
+            <dados-pessoais [perfil]="perfilObservable"></dados-pessoais>
             <resumo-pagamento [userId]="userIdObservable"></resumo-pagamento>
-        
+
     </ion-content>
 
+    <!-- fonte dos botões
+      https://forum.ionicframework.com/t/how-to-use-ion-tabs-as-a-simple-row-of-buttons/46318/2 -->
+<ion-footer>
+    <div class="buttonbar4">
+        <button outline ion-row center>
+            <ion-col>
+                <ion-icon name="home"></ion-icon>
+                <br> Inicial
+                <br>
+            </ion-col>
+        </button>
+        <button outline ion-row center (click)="pagamentos()">
+            <ion-col>
+                <ion-icon name="logo-usd"></ion-icon>
+                <br> Cedula C
+                <br>
+            </ion-col>
+        </button>
+        <button outline (click)="profile()" ion-row center>
+            <ion-col>
+                <ion-icon name="card"></ion-icon>
+                <br> Perfil
+                <br>
+            </ion-col>
+        </button>
+        <button outline ion-row center (click)="sair()">
+            <ion-col>
+                <ion-icon name="log-out"></ion-icon>
+                <br> Sair
+            </ion-col>
+        </button>
+    </div>
+</ion-footer>
 
-    <page-tabs></page-tabs>
 

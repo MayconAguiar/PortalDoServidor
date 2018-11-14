@@ -5,14 +5,17 @@ import { IonicModule } from 'ionic-angular';
 
 import { PipesModule } from '../pipes/pipes.module';
 import { ItemResumoPagamentoComponent } from './item-resumo-pagamento/item-resumo-pagamento';
+import { TabsComponent } from './tabs/tabs';
 @NgModule({
 	declarations: [
     ResumoPagamentoComponent,
     DadosPessoaisComponent,
-    ItemResumoPagamentoComponent],
+    ItemResumoPagamentoComponent,
+    TabsComponent],
 	imports: [IonicModule, PipesModule],
 	exports: [ResumoPagamentoComponent,
     DadosPessoaisComponent,
-    ItemResumoPagamentoComponent]
+    ItemResumoPagamentoComponent,
+    TabsComponent]
 })
 export class ComponentsModule {}

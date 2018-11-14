@@ -9,13 +9,31 @@ page-home {
 
 .boasVindas {
     font-size: 16px;
-}
-
-.icone button {
-    width: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .foto .item-inner {
     padding-right: 0px!important;
     border-bottom: unset !important;
+}
+
+div.buttonbar4 {
+  text-align: center;
+  width: 100%;
+  white-space: nowrap;
+  button {
+      /* use width: 23% for 4 buttons, width: 18.2% for 5 buttons */
+      width: 25%;
+      font-size: 11px;
+      height: 40px;
+      float: left;
+      ion-col {
+          text-align: center;
+          ion-icon {
+              /* margin-bottom controls the space between the icons and text */
+              margin-bottom: 3px;
+          }
+      }
+  }
 }

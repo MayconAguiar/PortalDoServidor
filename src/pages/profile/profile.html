@@ -24,7 +24,7 @@
     <ion-item>
       <ion-label stacked>Apelido</ion-label>
       <ion-input type="text" class="form-control"
-      [(ngModel)]="perfil.apelido" name="apelido" required #apelido="ngModel">></ion-input>
+      [(ngModel)]="perfil.apelido" name="apelido" maxlength="15" required #apelido="ngModel">></ion-input>
     </ion-item>
     <ion-item *ngIf='apelido.errors && (apelido.dirty || apelido.touched)' class="text-danger">
       O campo é obrigatório
