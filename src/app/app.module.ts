@@ -29,6 +29,8 @@ import { ProfilePageModule } from '../pages/profile/profile.module';
 import { ResetpasswordPageModule } from '../pages/resetpassword/resetpassword.module';
 import { SigninPageModule } from '../pages/signin/signin.module';
 import { SignupPageModule } from '../pages/signup/signup.module';
+import { TabsPageModule } from '../pages/tabs/tabs.module';
+import { TabsPage } from '../pages/tabs/tabs';
 
 const firebaseConfig = {
     apiKey: "AIzaSyA84s0aMZaoElicMyVLYHpSqBy6jjLtELM",
@@ -44,7 +46,7 @@ registerLocaleData(localeBR);
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage   
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,8 @@ registerLocaleData(localeBR);
     ProfilePageModule,
     ResetpasswordPageModule,
     SigninPageModule,
-    SignupPageModule
+    SignupPageModule,
+    TabsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -69,7 +72,8 @@ registerLocaleData(localeBR);
     SigninPage,
     SignupPage,
     ResetpasswordPage,
-    ProfilePage
+    ProfilePage,
+    TabsPage  
   ],
   providers: [
     AngularFireAuth,
