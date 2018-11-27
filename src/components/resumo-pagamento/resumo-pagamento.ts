@@ -11,15 +11,14 @@ import { Slides } from 'ionic-angular';
   selector: 'resumo-pagamento',
   templateUrl: 'resumo-pagamento.html'
 })
-export class ResumoPagamentoComponent implements AfterViewInit, OnDestroy {
+export class ResumoPagamentoComponent implements AfterViewInit {
 
   @Input("userId") userId: Observable<any>;
-  subscription;
-  resumosObservable: Observable<Resumo[]>;
+  subscription;  
   resumos: Resumo[];
-  
-  subjectresumo = new BehaviorSubject<Resumo[]>([]);
-  subjectAtual = new BehaviorSubject<number>(0);
+    
+  subjectAtual = new BehaviorSubject<number>(-1);
+  atualObservable : Observable<number>;
 
   @ViewChild(Slides) slides: Slides;
 
@@ -30,34 +29,35 @@ export class ResumoPagamentoComponent implements AfterViewInit, OnDestroy {
   resumoAtual;
   resumoProximo;
   resumoAnterior;
+  itens =[];
+  inicial=0;
 
-  constructor(private pagamentoService: PagamentoService, private ref: ChangeDetectorRef) {
-    this.resumosObservable = this.subjectresumo.asObservable();
-    this.subjectAtual.subscribe(x => this.setMesAtual(x));
+  constructor(private pagamentoService: PagamentoService, private ref: ChangeDetectorRef) {    
+    this.atualObservable = this.subjectAtual.asObservable();
+    this.subjectAtual.subscribe(x => this.setMesAtual(x));    
   }
 
   ngAfterViewInit() {
 
     this.subscription = this.userId.subscribe(id => {
        this.pagamentoService.obtenhaResumo(id)
-       .subscribe(x => {            
+       .subscribe(x => {
+          this.inicial = x.length -1;
+          this.itens = x;          
           this.resumos = x;          
-          this.subjectAtual.next(x.length - 1);
-          this.subjectresumo.next(x);                              
+          this.setMesAtual(x.length -1);
           this.ref.detectChanges();
-
-      });
+          this.subscription.unsubscribe();
+      });      
     });
   }
 
   mesAnterior() {
     this.subjectAtual.next(this.atual -1);
-    this.slides.slideTo(this.atual);    
   }
 
   mesProximo() {
-    this.subjectAtual.next(this.atual + 1);
-    this.slides.slideTo(this.atual);
+    this.subjectAtual.next(this.atual + 1);    
   }
 
   setMesAtual(mesAtual) {            
@@ -67,7 +67,7 @@ export class ResumoPagamentoComponent implements AfterViewInit, OnDestroy {
       this.proximo = mesAtual + 1;
       this.resumoAtual = this.obtenhaResumo(this.atual);
       this.resumoAnterior = this.obtenhaResumo(this.anterior);
-      this.resumoProximo = this.obtenhaResumo(this.proximo);      
+      this.resumoProximo = this.obtenhaResumo(this.proximo);
     }
   }
 
@@ -77,23 +77,10 @@ export class ResumoPagamentoComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  slideChanged() {    
-    let currentIndex = this.slides.getActiveIndex();
-    this.subjectAtual.next(currentIndex);    
-  }
+  mudou(currentIndex) {
+    console.log('mudou');
+    console.log(currentIndex);
+    this.subjectAtual.next(currentIndex);
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter');
-    this.slides.update();
-    this.slides.slideTo(this.atual);
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad');
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
 }

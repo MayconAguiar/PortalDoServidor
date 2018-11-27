@@ -69,7 +69,7 @@ registerLocaleData(localeBR);
     SigninPage,
     SignupPage,
     ResetpasswordPage,
-    ProfilePage
+    ProfilePage    
   ],
   providers: [
     AngularFireAuth,

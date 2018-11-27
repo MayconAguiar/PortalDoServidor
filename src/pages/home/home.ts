@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { SigninPage } from '../signin/signin';
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ProfilePage } from '../profile/profile';
 import { ProfileService } from '../../providers/profile/profile-service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Profile } from '../../providers/profile/profile';
-import { PagamentoService } from '../../providers/pagamento/pagamento-service';
-import { Resumo } from '../../providers/pagamento/resumo';
 import { InicialPage } from '../inicial/inicial';
 
 @Component({
@@ -31,8 +28,7 @@ export class HomePage {
     public navCtrl: NavController,
     private authService: AuthService,
     private angularFireAuth: AngularFireAuth,
-    private profileService: ProfileService,
-    private pagamentoService: PagamentoService)
+    private profileService: ProfileService)
     {
       this.dadosIniciais = this.subjectDadosIniciais.asObservable();
       this.perfilObservable = this.subjectPerfil.asObservable();

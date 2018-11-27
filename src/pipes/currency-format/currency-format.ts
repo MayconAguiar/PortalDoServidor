@@ -12,6 +12,8 @@ export class CurrencyFormatPipe implements PipeTransform {
       return '';
     }
 
+    value = Number.parseFloat(value.toString().replace(",", "."));
+
     let currencyPipe: CurrencyPipe = new CurrencyPipe('pt-BR');
     let newValue: string = currencyPipe.transform(value, currencyCode, symbolDisplay, digits);
 

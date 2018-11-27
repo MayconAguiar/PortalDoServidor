@@ -2,16 +2,17 @@
 <ion-list>
     <ion-item>
         <ion-row>
-            <ion-col class="menuMes" *ngIf="resumoAnterior!=null" (click)="mesAnterior()">{{ resumoAnterior.mes | date: 'MMMM/yyyy' }}</ion-col>
-            <ion-col class="selecionado">{{ resumoAtual?.mes | date: 'MMMM/yyyy' }}</ion-col>
-            <ion-col class="menuMes" (click)="mesProximo()">{{ resumoProximo==null? '' : resumoProximo.mes | date: 'MMMM/yyyy' }}</ion-col>
             <ion-col class="menuMes" *ngIf="resumoAnterior==null"></ion-col>
+            <ion-col class="menuMes" *ngIf="resumoAnterior!=null" (click)="mesAnterior()">{{ resumoAnterior.mes | date: 'MMM' }}</ion-col>
+            <ion-col class="selecionado">{{ resumoAtual?.mes | date: 'MMMM/yyyy' }}</ion-col>
+            <ion-col class="menuMes" (click)="mesProximo()">{{ resumoProximo==null? '' : resumoProximo.mes | date: 'MMM' }}</ion-col>
+            <ion-col class="menuMes" *ngIf="resumoProximo==null"></ion-col>
         </ion-row>
     </ion-item>
-    <ion-item>
-        <ion-slides [initialSlide]="atual" (ionSlideDidChange)="slideChanged()">
-            <ion-slide *ngFor="let resumo of resumosObservable | async; let i = index" >
-                <item-resumo-pagamento [resumo]="resumo"></item-resumo-pagamento>
-            </ion-slide>
-    </ion-slides>
+<ion-item>
+        <div *ngIf="itens?.length> 0">
+            <resumos [itens]="itens" [inicial]="inicial" (mudouSlide)="mudou($event)" [mude]="atualObservable"></resumos>
+        </div>
 </ion-item>
+    
+</ion-list>
