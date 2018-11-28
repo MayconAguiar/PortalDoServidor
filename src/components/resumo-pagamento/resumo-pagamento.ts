@@ -7,6 +7,8 @@ import { BehaviorSubject } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
 import { Slides } from 'ionic-angular';
 
+import { Storage } from '@ionic/storage';
+
 @Component({
   selector: 'resumo-pagamento',
   templateUrl: 'resumo-pagamento.html'
@@ -32,7 +34,7 @@ export class ResumoPagamentoComponent implements AfterViewInit {
   itens =[];
   inicial=0;
 
-  constructor(private pagamentoService: PagamentoService, private ref: ChangeDetectorRef) {    
+  constructor(private pagamentoService: PagamentoService, private ref: ChangeDetectorRef, private storage: Storage) {    
     this.atualObservable = this.subjectAtual.asObservable();
     this.subjectAtual.subscribe(x => this.setMesAtual(x));    
   }
@@ -40,15 +42,24 @@ export class ResumoPagamentoComponent implements AfterViewInit {
   ngAfterViewInit() {
 
     this.subscription = this.userId.subscribe(id => {
-       this.pagamentoService.obtenhaResumo(id)
-       .subscribe(x => {
-          this.inicial = x.length -1;
-          this.itens = x;          
-          this.resumos = x;          
-          this.setMesAtual(x.length -1);
-          this.ref.detectChanges();
-          this.subscription.unsubscribe();
-      });      
+      if (id) {         
+        this.storage.get("perfil").then(perfilStr => {
+            const perfil = JSON.parse(perfilStr);
+            
+            this.pagamentoService.obtenhaResumo(perfil)
+            .subscribe(x => {
+                this.inicial = x.length -1;
+                this.itens = x;          
+                this.resumos = x;          
+                this.setMesAtual(x.length -1);
+                this.ref.detectChanges();
+                
+                this.subscription.unsubscribe();
+            }); 
+        });
+  
+         
+      }
     });
   }
 
@@ -78,8 +89,8 @@ export class ResumoPagamentoComponent implements AfterViewInit {
   }
 
   mudou(currentIndex) {
-    console.log('mudou');
-    console.log(currentIndex);
+    // console.log('mudou');
+    // console.log(currentIndex);
     this.subjectAtual.next(currentIndex);
 
   }

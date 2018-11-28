@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Resumo } from './resumo';
 import { Observable } from 'rxjs';
+import { Profile } from '../profile/profile';
 
 @Injectable()
 export class PagamentoService {
@@ -9,23 +10,10 @@ export class PagamentoService {
   constructor(public http: HttpClient) {
   }
 
-  obtenhaResumo(userId) {
-
-    return this.http.get("http://localhost:84/api/contracheque/ObtenhaResumos?cpf=70425027104&empresa=1&matricula=5572909")
+  obtenhaResumo(perfil: Profile) {    
+    return this.http.get(`http://localhost:84/api/contracheque/ObtenhaResumos?cpf=${perfil.cpf}&empresa=${perfil.contratopadrao.empresa}&matricula=${perfil.contratopadrao.matricula}`)
     .map(result => this.obtenhaItens(result));
-    
-    // return new Observable<Resumo[]>(observer =>{
-    //   const resumos = [];
-
-    //   for (let index = 10; index >0; index--) {
-    //     resumos.push(this.obtenhaItem(index));
-    //   }
-
-    //   observer.next(resumos);
-    //   observer.complete();
-    // });
-
-  }
+  }  
 
   obtenhaItens(itens) {
 
@@ -52,9 +40,7 @@ export class PagamentoService {
         }
       });
       
-      resumos.push(resumo);
-
-      
+      resumos.push(resumo);      
     });
 
     return resumos;

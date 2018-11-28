@@ -8,6 +8,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Profile } from '../../providers/profile/profile';
 import { InicialPage } from '../inicial/inicial';
 
+import { Storage } from '@ionic/storage';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -28,7 +30,8 @@ export class HomePage {
     public navCtrl: NavController,
     private authService: AuthService,
     private angularFireAuth: AngularFireAuth,
-    private profileService: ProfileService)
+    private profileService: ProfileService,
+    private storage: Storage)
     {
       this.dadosIniciais = this.subjectDadosIniciais.asObservable();
       this.perfilObservable = this.subjectPerfil.asObservable();
@@ -40,9 +43,12 @@ export class HomePage {
             .valueChanges()
             .subscribe(perfil => {
                 this.perfil = perfil || new Profile();
+                this.storage.set("perfil",  JSON.stringify(perfil));
+                
                 this.subjectDadosIniciais.next(true);
                 this.subjectId.next(this.userId);
                 this.subjectPerfil.next(perfil);
+
               });
           }
       });
