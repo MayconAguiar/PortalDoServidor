@@ -32,7 +32,7 @@ export class ResumoPagamentoComponent implements AfterViewInit {
   resumoProximo;
   resumoAnterior;
   itens =[];
-  inicial=0;
+  inicial=0;  
 
   constructor(private pagamentoService: PagamentoService, private ref: ChangeDetectorRef, private storage: Storage) {    
     this.atualObservable = this.subjectAtual.asObservable();

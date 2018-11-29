@@ -1,0 +1,39 @@
+<!--
+  Generated template for the MatriculasPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Contratos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list radio-group>
+    <ion-list-header>
+      Contrato Padrão
+    </ion-list-header>
+    
+    
+    <ion-item *ngFor="let item of itens | async">      
+      <ion-label>Matricula: {{ item?.Matricula }}</ion-label>
+      <!--  -->
+      <ion-radio [checked]="item?.Matricula==perfil.contratopadrao?.matricula" value="item?.Matricula"></ion-radio>
+    </ion-item>
+   
+    <!-- <ion-item>
+      <ion-label>Rust</ion-label>
+      <ion-radio value="rust"></ion-radio>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Python</ion-label>
+      <ion-radio value="python" disabled="true"></ion-radio>
+    </ion-item> -->
+  </ion-list>
+</ion-content>

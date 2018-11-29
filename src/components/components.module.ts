@@ -8,6 +8,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { ItemResumoPagamentoComponent } from './item-resumo-pagamento/item-resumo-pagamento';
 import { TabsComponent } from './tabs/tabs';
 import { ResumosComponent } from './resumos/resumos';
+import { ContratoSelecionadoComponent } from './contrato-selecionado/contrato-selecionado';
 
 @NgModule({
 	declarations: [
@@ -15,12 +16,14 @@ import { ResumosComponent } from './resumos/resumos';
     DadosPessoaisComponent,
     ItemResumoPagamentoComponent,
     TabsComponent,
-    ResumosComponent],
+    ResumosComponent,
+    ContratoSelecionadoComponent],
 	imports: [IonicModule, PipesModule, IonicStorageModule.forRoot()],
 	exports: [ResumoPagamentoComponent,
     DadosPessoaisComponent,
     ItemResumoPagamentoComponent,
     TabsComponent,
-    ResumosComponent]
+    ResumosComponent,
+    ContratoSelecionadoComponent]
 })
 export class ComponentsModule {}

@@ -9,6 +9,7 @@ import { Profile } from '../../providers/profile/profile';
 import { InicialPage } from '../inicial/inicial';
 
 import { Storage } from '@ionic/storage';
+import { MatriculasPage } from '../matriculas/matriculas';
 
 @Component({
   selector: 'page-home',
@@ -38,7 +39,7 @@ export class HomePage {
 
       this.angularFireAuth.authState.subscribe(user => {
         if(user) {
-            this.userId = user.uid;
+            this.userId = user.uid;            
             this.profileService.obtenha(this.userId)
             .valueChanges()
             .subscribe(perfil => {
@@ -48,19 +49,24 @@ export class HomePage {
                 this.subjectDadosIniciais.next(true);
                 this.subjectId.next(this.userId);
                 this.subjectPerfil.next(perfil);
-
               });
           }
       });
   }
 
   sair() {
+    this.storage.remove("perfil");
     this.navCtrl.setRoot(InicialPage);
     this.authService.sair();
   }
 
   profile() {
     this.navCtrl.push(ProfilePage, { userId: this.userId });
+  }
+
+  mudarMatricula() {
+    console.log("clicou em mudar matricula");
+    this.navCtrl.push(MatriculasPage);
   }
 
   pagamentos() {

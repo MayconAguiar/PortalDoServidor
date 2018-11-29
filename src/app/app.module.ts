@@ -30,6 +30,8 @@ import { ProfilePageModule } from '../pages/profile/profile.module';
 import { ResetpasswordPageModule } from '../pages/resetpassword/resetpassword.module';
 import { SigninPageModule } from '../pages/signin/signin.module';
 import { SignupPageModule } from '../pages/signup/signup.module';
+import { MatriculasPage } from '../pages/matriculas/matriculas';
+import { MatriculasPageModule } from '../pages/matriculas/matriculas.module';
 
 const firebaseConfig = {
     apiKey: "AIzaSyA84s0aMZaoElicMyVLYHpSqBy6jjLtELM",
@@ -62,6 +64,7 @@ registerLocaleData(localeBR);
     ResetpasswordPageModule,
     SigninPageModule,
     SignupPageModule,
+    MatriculasPageModule,
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -71,7 +74,8 @@ registerLocaleData(localeBR);
     SigninPage,
     SignupPage,
     ResetpasswordPage,
-    ProfilePage    
+    ProfilePage,
+    MatriculasPage
   ],
   providers: [
     AngularFireAuth,

@@ -1,0 +1,9 @@
+<ion-card>
+  <!-- <ion-card-header class="titulo">
+          <ion-row>Matrícula</ion-row>
+  </ion-card-header>             -->
+  
+  <ion-card-content padding class="has-header">                        
+      <ion-row>Matrícula: {{ (perfil | async)?.contratopadrao?.matricula }}</ion-row>                      
+  </ion-card-content>
+</ion-card>
