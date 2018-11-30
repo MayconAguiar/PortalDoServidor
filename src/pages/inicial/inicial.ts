@@ -21,7 +21,7 @@ export class InicialPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad InicialPage');
+    // console.log('ionViewDidLoad InicialPage');
   }
 
   login(){

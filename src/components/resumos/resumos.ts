@@ -21,7 +21,7 @@ export class ResumosComponent implements AfterViewInit{
   @Input("mude") mude: Observable<number>;
 
   constructor() {    
-    console.log(this.inicial);
+    // console.log(this.inicial);
   }
 
   ngAfterViewInit() {

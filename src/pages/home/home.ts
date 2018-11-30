@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Events } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ProfilePage } from '../profile/profile';
@@ -29,6 +29,7 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
+    public events: Events,
     private authService: AuthService,
     private angularFireAuth: AngularFireAuth,
     private profileService: ProfileService,
@@ -44,14 +45,15 @@ export class HomePage {
             .valueChanges()
             .subscribe(perfil => {
                 this.perfil = perfil || new Profile();
-                this.storage.set("perfil",  JSON.stringify(perfil));
-                
+                this.storage.set("perfil",  JSON.stringify(perfil));                
                 this.subjectDadosIniciais.next(true);
                 this.subjectId.next(this.userId);
                 this.subjectPerfil.next(perfil);
               });
           }
       });
+
+      this.events.subscribe("mudouMatricula", (matricula) => this.mudouMatricula(matricula));
   }
 
   sair() {
@@ -67,6 +69,14 @@ export class HomePage {
   mudarMatricula() {
     console.log("clicou em mudar matricula");
     this.navCtrl.push(MatriculasPage);
+  }
+
+  mudouMatricula(matricula) {
+    // console.log('mudou matricula');
+    this.perfil.contratopadrao.matricula = matricula;
+    this.storage.set("perfil",  JSON.stringify(this.perfil));
+    this.subjectPerfil.next(this.perfil);
+    this.events.publish("perfilAlterado", this.perfil);
   }
 
   pagamentos() {

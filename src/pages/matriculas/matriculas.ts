@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { IonicPage, NavController, NavParams, Events, ToastController } from 'ionic-angular';
 import { PagamentoService } from '../../providers/pagamento/pagamento-service';
 
 import { Storage } from '@ionic/storage';
@@ -14,13 +14,35 @@ import { Observable } from 'rxjs';
 export class MatriculasPage {
 
   itens;
-  perfil: Profile;
+  //perfil: Profile;  
+  //@Input("perfil") perfil: Observable<any>;
+  perfil;
+  // @Output("mudouMatricula") evento = new EventEmitter<any>();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private servico: PagamentoService,  private storage: Storage) {
-     this.storage.get("perfil").then(perfilStr => {
-       this.perfil = JSON.parse(perfilStr);
-       console.log(this.perfil);
-       this.itens = this.servico.obtenhaContratos(this.perfil);      
-    });
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public events: Events, 
+    private servico: PagamentoService,  
+    private storage: Storage,
+    private toastCtrl: ToastController) {
+     
+      this.storage.get("perfil").then(perfilStr => {        
+          this.perfil = JSON.parse(perfilStr);
+          this.itens = this.servico.obtenhaContratos(this.perfil);      
+      });      
+    
+      this.events.subscribe("perfilAlterado", (perfil)=> this.perfil = perfil);
+  }
+
+  selecionar(matricula) {        
+    this.events.publish('mudouMatricula', matricula);    
+  }
+
+  definirComoPadrao() {
+    const toast = this.toastCtrl.create({duration: 3000, position: 'bottom'});
+    this.servico.AtualizeContratoPadrao(this.perfil);
+    toast.setMessage('Matrícula padrão atualizada.');
+    toast.present();
   }
 }

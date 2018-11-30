@@ -47,7 +47,12 @@ export class PagamentoService {
            return perfil;
           }      
       })
-     .flatMap(perfil => this.AtualizeContratoPadrao(perfil));
+     .flatMap(perfil => this.teste(perfil));
+  }
+
+
+  teste (perfil) {
+    return this.angularFireAuth.authState.map(user => this.profileService.salve(user.uid, perfil));
   }
 
   obtenhaContratos(perfil: Profile) {
@@ -56,7 +61,10 @@ export class PagamentoService {
   }
 
   AtualizeContratoPadrao(perfil: Profile) {
-    return this.angularFireAuth.authState.map(user => this.profileService.salve(user.uid, perfil));
+    const subscription = this.angularFireAuth.authState.subscribe(user => {
+      this.profileService.salve(user.uid, perfil);      
+       subscription.unsubscribe();
+    });
   }
 
   private obtenhaResumoInterno(perfil: Profile) {

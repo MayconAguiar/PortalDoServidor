@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, AfterViewInit, ViewChild } from '@angular/core';
 
 import { Resumo } from '../../providers/pagamento/resumo';
 import { PagamentoService } from '../../providers/pagamento/pagamento-service';
@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
 import { Slides } from 'ionic-angular';
-
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -15,7 +14,7 @@ import { Storage } from '@ionic/storage';
 })
 export class ResumoPagamentoComponent implements AfterViewInit {
 
-  @Input("userId") userId: Observable<any>;
+  @Input("perfil") perfil: Observable<any>;
   subscription;  
   resumos: Resumo[];
     
@@ -40,26 +39,17 @@ export class ResumoPagamentoComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-
-    this.subscription = this.userId.subscribe(id => {
-      if (id) {         
-        this.storage.get("perfil").then(perfilStr => {
-            const perfil = JSON.parse(perfilStr);
-            
-            this.pagamentoService.obtenhaResumo(perfil)
-            .subscribe(x => {
-                this.inicial = x.length -1;
-                this.itens = x;          
-                this.resumos = x;          
-                this.setMesAtual(x.length -1);
-                this.ref.detectChanges();
-                
-                this.subscription.unsubscribe();
-            }); 
-        });
-  
-         
-      }
+    const subscriptionPerfil = this.perfil.subscribe(item => {      
+      const subscriptionResumo = this.pagamentoService.obtenhaResumo(item)
+        .subscribe(x => {
+            this.inicial = x.length -1;
+            this.itens = x;          
+            this.resumos = x;          
+            this.setMesAtual(x.length -1);
+            this.ref.detectChanges();
+            subscriptionResumo.unsubscribe();
+            subscriptionPerfil.unsubscribe();
+        }); 
     });
   }
 
@@ -88,10 +78,14 @@ export class ResumoPagamentoComponent implements AfterViewInit {
     }
   }
 
-  mudou(currentIndex) {
-    // console.log('mudou');
-    // console.log(currentIndex);
+  mudou(currentIndex) {    
     this.subjectAtual.next(currentIndex);
-
+  }
+  
+  isNullOrEmpty(obj) {
+    if (typeof obj === 'string' || obj instanceof String) {
+        return obj === '' || obj == null;
+    }
+    return true;
   }
 }

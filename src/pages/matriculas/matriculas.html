@@ -7,23 +7,23 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Contratos</ion-title>
+    <ion-title>Seleção de Matrículas</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-list radio-group>
-    <ion-list-header>
+  <ion-list radio-group (ionChange)="selecionar($event)">
+    <!-- <ion-list-header>
       Contrato Padrão
-    </ion-list-header>
+    </ion-list-header> -->
     
     
     <ion-item *ngFor="let item of itens | async">      
-      <ion-label>Matricula: {{ item?.Matricula }}</ion-label>
+      <ion-label>Matricula: {{ item?.matricula }}</ion-label>
       <!--  -->
-      <ion-radio [checked]="item?.Matricula==perfil.contratopadrao?.matricula" value="item?.Matricula"></ion-radio>
+      <ion-radio [checked]="item?.matricula==perfil.contratopadrao?.matricula" value="{{ item?.matricula }}" ></ion-radio>
     </ion-item>
    
     <!-- <ion-item>
@@ -36,4 +36,5 @@
       <ion-radio value="python" disabled="true"></ion-radio>
     </ion-item> -->
   </ion-list>
+  <button ion-button type="submit" [disabled]="(itens | async)?.length < 2" block (click)="definirComoPadrao()">Definir como Padrão</button>
 </ion-content>

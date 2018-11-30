@@ -19,9 +19,9 @@
   </ion-header>
 
     <ion-content padding class="has-header">
-            <contrato-selecionado [perfil]="perfilObservable" (click)="mudarMatricula()"></contrato-selecionado>
+            <contrato-selecionado [perfil]="perfilObservable" (click)="mudarMatricula()" (mudouMatricula)="mudouMatricula($event)"></contrato-selecionado>
             <dados-pessoais [perfil]="perfilObservable"></dados-pessoais>
-            <resumo-pagamento [userId]="userIdObservable"></resumo-pagamento>
+            <resumo-pagamento [perfil]="perfilObservable"></resumo-pagamento>
     </ion-content>
 
     <!-- fonte dos botões

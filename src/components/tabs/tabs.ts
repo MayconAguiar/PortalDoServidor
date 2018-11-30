@@ -15,8 +15,8 @@ export class TabsComponent {
   text: string;
 
   constructor() {
-    console.log('Hello TabsComponent Component');
-    this.text = 'Hello World';
+    // console.log('Hello TabsComponent Component');
+    // this.text = 'Hello World';
   }
 
 }
