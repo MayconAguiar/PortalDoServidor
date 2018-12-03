@@ -23,7 +23,7 @@ export class HomePage {
   subjectDadosIniciais = new BehaviorSubject<boolean>(false);
   subjectId = new BehaviorSubject<any>({});
   userIdObservable = this.subjectId.asObservable();
-  subjectPerfil = new BehaviorSubject<any>({});
+  subjectPerfil = new BehaviorSubject<any>(null);
   perfilObservable = this.subjectId.asObservable();
 
 

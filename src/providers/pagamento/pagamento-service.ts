@@ -55,7 +55,7 @@ export class PagamentoService {
     return this.angularFireAuth.authState.map(user => this.profileService.salve(user.uid, perfil));
   }
 
-  obtenhaContratos(perfil: Profile) {
+  obtenhaContratos(perfil: Profile) {    
     return this.http.get(`http://localhost:84/api/contracheque/ObtenhaContratos?cpf=${perfil.cpf}`)
     .map(result => this.buildContratos(result));
   }
@@ -85,7 +85,7 @@ export class PagamentoService {
       contratos.push(contrato);      
     });
 
-    console.log(contratos);
+    // console.log(contratos);
     return contratos;
   }
 

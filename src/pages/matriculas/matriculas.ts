@@ -29,7 +29,9 @@ export class MatriculasPage {
      
       this.storage.get("perfil").then(perfilStr => {        
           this.perfil = JSON.parse(perfilStr);
-          this.itens = this.servico.obtenhaContratos(this.perfil);      
+          if(!this.isNullOrEmpty(this.perfil.cpf)){
+            this.itens = this.servico.obtenhaContratos(this.perfil);      
+          }
       });      
     
       this.events.subscribe("perfilAlterado", (perfil)=> this.perfil = perfil);
@@ -44,5 +46,12 @@ export class MatriculasPage {
     this.servico.AtualizeContratoPadrao(this.perfil);
     toast.setMessage('Matrícula padrão atualizada.');
     toast.present();
+  }
+
+  private isNullOrEmpty(obj) {
+    if (typeof obj === 'string' || obj instanceof String) {
+        return obj === '' || obj == null;
+    }
+    return true;
   }
 }

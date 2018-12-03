@@ -39,17 +39,19 @@ export class ResumoPagamentoComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const subscriptionPerfil = this.perfil.subscribe(item => {      
-      const subscriptionResumo = this.pagamentoService.obtenhaResumo(item)
-        .subscribe(x => {
-            this.inicial = x.length -1;
-            this.itens = x;          
-            this.resumos = x;          
-            this.setMesAtual(x.length -1);
-            this.ref.detectChanges();
-            subscriptionResumo.unsubscribe();
-            subscriptionPerfil.unsubscribe();
+    const subscriptionPerfil = this.perfil.subscribe(item => {     
+      if (item != null)  {
+          const subscriptionResumo = this.pagamentoService.obtenhaResumo(item)
+          .subscribe(x => {
+              this.inicial = x.length -1;
+              this.itens = x;          
+              this.resumos = x;          
+              this.setMesAtual(x.length -1);
+              this.ref.detectChanges();
+              subscriptionResumo.unsubscribe();
+              subscriptionPerfil.unsubscribe();
         }); 
+      }
     });
   }
 
@@ -80,12 +82,5 @@ export class ResumoPagamentoComponent implements AfterViewInit {
 
   mudou(currentIndex) {    
     this.subjectAtual.next(currentIndex);
-  }
-  
-  isNullOrEmpty(obj) {
-    if (typeof obj === 'string' || obj instanceof String) {
-        return obj === '' || obj == null;
-    }
-    return true;
   }
 }
