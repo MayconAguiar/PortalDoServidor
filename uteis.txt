@@ -17,3 +17,13 @@ chrome://inspect/#devices
 #não pode estar instalado
 #debugar chrome://inspect/#devices
 ionic cordova run android --device --verbose
+
+https://stackoverflow.com/questions/49162823/ionic-app-cant-build-on-android-aapt-error
+Some plugins may encounter incompatibilities due to new updates of Android Support Libraries as explained in other replies here.
+
+Easiest fix is by installing "cordova-android-support-gradle-release" plugin. This plugin will automatically align the version of the plugin which crashed and you can continue to use your plugin.
+
+Also this fix is persistent compared with manually change the version directly into the plugin.
+
+cordova plugin add cordova-android-support-gradle-release --fetch  
+Also you may have a look into the documentation and other related issue here

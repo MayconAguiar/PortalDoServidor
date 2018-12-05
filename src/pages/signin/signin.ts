@@ -32,30 +32,24 @@ export class SigninPage {
 
     const toast = this.toastCtrl.create({duration: 3000, position: 'bottom'});
 
-    if (this.form.form.valid){
+    if (this.form.form.valid) {
       this.authService.signin(this.user)
-      .then(()=> this.navCtrl.setRoot(HomePage))
+      .then(() => this.navCtrl.setRoot(HomePage))
       .catch(err => {
-        if(err.code == "auth/invalid-email") {
+        if (err.code === 'auth/invalid-email') {
           toast.setMessage('o email digitado é inválido.');
-        }
-        else if(err.code == "auth/user-disabled") {
+        } else if (err.code === 'auth/user-disabled') {
           toast.setMessage('Usuário desabilitado.');
-        }
-        else if(err.code == "auth/user-not-found") {
+        } else if (err.code === 'auth/user-not-found') {
           toast.setMessage('Usuário não encontrado.');
-        }
-        else if(err.code == "auth/wrong-password") {
+        } else if (err.code === 'auth/wrong-password') {
           toast.setMessage('Senha inválida.');
-        }
-        else {
+        } else {
           toast.setMessage('Ocorreu um problema.');
           console.log(err);
         }
         toast.present();
       });
-
-
     }
   }
 }

@@ -32,14 +32,18 @@ import { SigninPageModule } from '../pages/signin/signin.module';
 import { SignupPageModule } from '../pages/signup/signup.module';
 import { MatriculasPage } from '../pages/matriculas/matriculas';
 import { MatriculasPageModule } from '../pages/matriculas/matriculas.module';
+import { File } from '@ionic-native/file';
+import { FileOpener } from '@ionic-native/file-opener';
+import { DocumentViewer } from '@ionic-native/document-viewer';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyA84s0aMZaoElicMyVLYHpSqBy6jjLtELM",
-    authDomain: "portaldoservidor-fc6d8.firebaseapp.com",
-    databaseURL: "https://portaldoservidor-fc6d8.firebaseio.com",
-    projectId: "portaldoservidor-fc6d8",
-    storageBucket: "portaldoservidor-fc6d8.appspot.com",
-    messagingSenderId: "1033942276380"
+    apiKey: 'AIzaSyA84s0aMZaoElicMyVLYHpSqBy6jjLtELM',
+    authDomain: 'portaldoservidor-fc6d8.firebaseapp.com',
+    databaseURL: 'https://portaldoservidor-fc6d8.firebaseio.com',
+    projectId: 'portaldoservidor-fc6d8',
+    storageBucket: 'portaldoservidor-fc6d8.appspot.com',
+    messagingSenderId: '1033942276380'
 }
 
 registerLocaleData(localeBR);
@@ -85,7 +89,11 @@ registerLocaleData(localeBR);
     AuthService,
     ProfileService,
     PagamentoService,
+    File,
+    FileOpener,
+    DocumentViewer,
     Camera,
+    FileTransfer,
     { provide: LOCALE_ID, useValue: 'pt-BR'}
   ]
 })

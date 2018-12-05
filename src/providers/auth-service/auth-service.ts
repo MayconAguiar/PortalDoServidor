@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth'
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs';
-import  * as firebase from 'firebase/app';
+import * as firebase from 'firebase/app';
 import { User } from './user';
 
 @Injectable()
 export class AuthService {
 
-  user: Observable<firebase.User>
+  user: Observable<firebase.User>;
 
   constructor(private angularFireAuth: AngularFireAuth) {
     this.user = this.angularFireAuth.authState;
@@ -25,7 +25,7 @@ export class AuthService {
     return this.angularFireAuth.auth.sendPasswordResetEmail(email);
   }
 
-  sair(){
+  sair() {
     this.angularFireAuth.auth.signOut();
   }
 }

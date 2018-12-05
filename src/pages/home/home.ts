@@ -40,12 +40,12 @@ export class HomePage {
 
       this.angularFireAuth.authState.subscribe(user => {
         if(user) {
-            this.userId = user.uid;            
+            this.userId = user.uid;
             this.profileService.obtenha(this.userId)
             .valueChanges()
             .subscribe(perfil => {
                 this.perfil = perfil || new Profile();
-                this.storage.set("perfil",  JSON.stringify(perfil));                
+                this.storage.set('perfil',  JSON.stringify(perfil));
                 this.subjectDadosIniciais.next(true);
                 this.subjectId.next(this.userId);
                 this.subjectPerfil.next(perfil);
@@ -53,11 +53,11 @@ export class HomePage {
           }
       });
 
-      this.events.subscribe("mudouMatricula", (matricula) => this.mudouMatricula(matricula));
+      this.events.subscribe('mudouMatricula', (matricula) => this.mudouMatricula(matricula));
   }
 
   sair() {
-    this.storage.remove("perfil");
+    this.storage.remove('perfil');
     this.navCtrl.setRoot(InicialPage);
     this.authService.sair();
   }
@@ -67,18 +67,13 @@ export class HomePage {
   }
 
   mudarMatricula() {
-    console.log("clicou em mudar matricula");
     this.navCtrl.push(MatriculasPage);
   }
 
   mudouMatricula(matricula) {
-    // console.log('mudou matricula');
     this.perfil.contratopadrao.matricula = matricula;
-    this.storage.set("perfil",  JSON.stringify(this.perfil));
+    this.storage.set('perfil',  JSON.stringify(this.perfil));
     this.subjectPerfil.next(this.perfil);
-    this.events.publish("perfilAlterado", this.perfil);
-  }
-
-  pagamentos() {
+    this.events.publish('perfilAlterado', this.perfil);
   }
 }

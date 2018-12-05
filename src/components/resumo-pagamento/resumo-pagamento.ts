@@ -14,39 +14,41 @@ import { Storage } from '@ionic/storage';
 })
 export class ResumoPagamentoComponent implements AfterViewInit {
 
-  @Input("perfil") perfil: Observable<any>;
-  subscription;  
+  @Input('perfil') perfil: Observable<any>;
+  perfilObtido;
+  subscription;
   resumos: Resumo[];
-    
+
   subjectAtual = new BehaviorSubject<number>(-1);
-  atualObservable : Observable<number>;
+  atualObservable: Observable<number>;
 
   @ViewChild(Slides) slides: Slides;
 
   anterior = -1;
   atual = 0;
-  proximo = -1;  
+  proximo = -1;
 
   resumoAtual;
   resumoProximo;
   resumoAnterior;
-  itens =[];
-  inicial=0;  
+  itens = [];
+  inicial = 0;
 
-  constructor(private pagamentoService: PagamentoService, private ref: ChangeDetectorRef, private storage: Storage) {    
+  constructor(private pagamentoService: PagamentoService, private ref: ChangeDetectorRef, private storage: Storage) {
     this.atualObservable = this.subjectAtual.asObservable();
-    this.subjectAtual.subscribe(x => this.setMesAtual(x));    
+    this.subjectAtual.subscribe(x => this.setMesAtual(x));
   }
 
   ngAfterViewInit() {
-    const subscriptionPerfil = this.perfil.subscribe(item => {     
+    const subscriptionPerfil = this.perfil.subscribe(item => {
       if (item != null)  {
+          this.perfilObtido = item;
           const subscriptionResumo = this.pagamentoService.obtenhaResumo(item)
           .subscribe(x => {
-              this.inicial = x.length -1;
-              this.itens = x;          
-              this.resumos = x;          
-              this.setMesAtual(x.length -1);
+              this.inicial = x.length - 1;
+              this.itens = x;
+              this.resumos = x;
+              this.setMesAtual(x.length - 1);
               this.ref.detectChanges();
               subscriptionResumo.unsubscribe();
               subscriptionPerfil.unsubscribe();
@@ -56,14 +58,14 @@ export class ResumoPagamentoComponent implements AfterViewInit {
   }
 
   mesAnterior() {
-    this.subjectAtual.next(this.atual -1);
+    this.subjectAtual.next(this.atual - 1);
   }
 
   mesProximo() {
-    this.subjectAtual.next(this.atual + 1);    
+    this.subjectAtual.next(this.atual + 1);
   }
 
-  setMesAtual(mesAtual) {            
+  setMesAtual(mesAtual) {
     if (mesAtual >= 0 && this.resumos != null && mesAtual < this.resumos.length) {
       this.atual = mesAtual;
       this.anterior = mesAtual - 1;
@@ -74,13 +76,13 @@ export class ResumoPagamentoComponent implements AfterViewInit {
     }
   }
 
-  obtenhaResumo(index){
-    if (index != -1 && this.resumos !=null && this.resumos.length > index){
+  obtenhaResumo(index) {
+    if (index !== -1 && this.resumos != null && this.resumos.length > index) {
       return this.resumos[index];
     }
   }
 
-  mudou(currentIndex) {    
+  mudou(currentIndex) {
     this.subjectAtual.next(currentIndex);
   }
 }

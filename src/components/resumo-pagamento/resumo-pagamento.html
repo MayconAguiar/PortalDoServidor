@@ -11,7 +11,7 @@
     </ion-item>
 <ion-item>
         <div *ngIf="itens?.length> 0">
-            <resumos [itens]="itens" [inicial]="inicial" (mudouSlide)="mudou($event)" [mude]="atualObservable"></resumos>
+            <resumos [itens]="itens" [inicial]="inicial" [perfil]="perfilObtido" (mudouSlide)="mudou($event)" [mude]="atualObservable"></resumos>
         </div>
 </ion-item>
     

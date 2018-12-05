@@ -1,10 +1,7 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, ToastController } from 'ionic-angular';
 import { PagamentoService } from '../../providers/pagamento/pagamento-service';
-
 import { Storage } from '@ionic/storage';
-import { Profile } from '../../providers/profile/profile';
-import { Observable } from 'rxjs';
 
 @IonicPage()
 @Component({
@@ -14,31 +11,28 @@ import { Observable } from 'rxjs';
 export class MatriculasPage {
 
   itens;
-  //perfil: Profile;  
-  //@Input("perfil") perfil: Observable<any>;
   perfil;
-  // @Output("mudouMatricula") evento = new EventEmitter<any>();
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    public events: Events, 
-    private servico: PagamentoService,  
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public events: Events,
+    private servico: PagamentoService,
     private storage: Storage,
     private toastCtrl: ToastController) {
-     
-      this.storage.get("perfil").then(perfilStr => {        
+
+      this.storage.get('perfil').then(perfilStr => {
           this.perfil = JSON.parse(perfilStr);
-          if(!this.isNullOrEmpty(this.perfil.cpf)){
-            this.itens = this.servico.obtenhaContratos(this.perfil);      
+          if (!this.isNullOrEmpty(this.perfil.cpf)) {
+            this.itens = this.servico.obtenhaContratos(this.perfil);
           }
-      });      
-    
-      this.events.subscribe("perfilAlterado", (perfil)=> this.perfil = perfil);
+      });
+
+      this.events.subscribe('perfilAlterado', (perfil) => this.perfil = perfil);
   }
 
-  selecionar(matricula) {        
-    this.events.publish('mudouMatricula', matricula);    
+  selecionar(matricula) {
+    this.events.publish('mudouMatricula', matricula);
   }
 
   definirComoPadrao() {

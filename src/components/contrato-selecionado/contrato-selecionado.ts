@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'contrato-selecionado',
@@ -7,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ContratoSelecionadoComponent {
 
-  @Input("perfil") perfil;
+  @Input('perfil') perfil;
   constructor() {
   }
 }

@@ -1,5 +1,5 @@
 <ion-slides [initialSlide]="inicial" (ionSlideDidChange)="slideChanged()">
     <ion-slide *ngFor="let resumo of itens" >
-        <item-resumo-pagamento [resumo]="resumo"></item-resumo-pagamento>
+        <item-resumo-pagamento [resumo]="resumo" [perfil]="perfil" ></item-resumo-pagamento>
     </ion-slide>
 </ion-slides>

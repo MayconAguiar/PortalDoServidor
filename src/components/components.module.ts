@@ -11,15 +11,15 @@ import { ResumosComponent } from './resumos/resumos';
 import { ContratoSelecionadoComponent } from './contrato-selecionado/contrato-selecionado';
 
 @NgModule({
-	declarations: [
+declarations: [
     ResumoPagamentoComponent,
     DadosPessoaisComponent,
     ItemResumoPagamentoComponent,
     TabsComponent,
     ResumosComponent,
     ContratoSelecionadoComponent],
-	imports: [IonicModule, PipesModule, IonicStorageModule.forRoot()],
-	exports: [ResumoPagamentoComponent,
+imports: [IonicModule, PipesModule, IonicStorageModule.forRoot()],
+exports: [ResumoPagamentoComponent,
     DadosPessoaisComponent,
     ItemResumoPagamentoComponent,
     TabsComponent,

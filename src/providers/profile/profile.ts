@@ -7,6 +7,6 @@ export class Profile {
 }
 
 export class Contrato {
-  empresa: string
-  matricula: string
+  empresa: string;
+  matricula: string;
 }

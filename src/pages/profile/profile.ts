@@ -16,7 +16,7 @@ export class ProfilePage {
 
   perfil = new Profile();
   userId;
-  imgPath: string = '';
+  imgPath = '';
   fileToUpload: any;
   fezUpload = false;
   @ViewChild('form') form: NgForm;
@@ -27,9 +27,8 @@ export class ProfilePage {
     public platform: Platform,
     private profileService: ProfileService,
     private camera: Camera,
-    public actionsheetCtrl: ActionSheetController,
-    private ref: ChangeDetectorRef) {
-      this.userId = this.navParams.get("userId");
+    public actionsheetCtrl: ActionSheetController) {
+      this.userId = this.navParams.get('userId');
       const observableProfile = this.profileService.obtenha(this.userId).valueChanges().subscribe(x => {
         this.perfil = x || new Profile();
 
@@ -38,7 +37,7 @@ export class ProfilePage {
   }
 
   salvar() {
-    if(this.form.form.valid){
+    if (this.form.form.valid) {
       if (this.fezUpload) {
         this.profileService.uploadAndSave(this.userId, this.perfil, this.fileToUpload);
       } else  {
@@ -49,7 +48,7 @@ export class ProfilePage {
   }
 
   alterarFoto() {
-    let actionSheet = this.actionsheetCtrl.create({
+    const actionSheet = this.actionsheetCtrl.create({
           title: 'Opções',
           cssClass: 'action-sheets-basic-page',
           buttons: [
@@ -79,7 +78,7 @@ export class ProfilePage {
             destinationType: this.camera.DestinationType.DATA_URL,
             encodingType: this.camera.EncodingType.JPEG,
             mediaType: this.camera.MediaType.PICTURE
-          }
+            };
 
           this.camera.getPicture(options).then((imageData) => {
             this.imgPath = 'data:image/jpeg;base64,' + imageData;
@@ -87,7 +86,8 @@ export class ProfilePage {
             this.fezUpload = true;
           }, (err) => {
             // Handle error
-          })}
+          });
+  }
 
 openGallery() {
     const options: CameraOptions = {

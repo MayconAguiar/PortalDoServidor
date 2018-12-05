@@ -3,13 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SigninPage } from '../signin/signin';
 import { SignupPage } from '../signup/signup';
 
-/**
- * Generated class for the InicialPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-inicial',
@@ -24,7 +17,7 @@ export class InicialPage {
     // console.log('ionViewDidLoad InicialPage');
   }
 
-  login(){
+  login() {
     this.navCtrl.push(SigninPage);
   }
 

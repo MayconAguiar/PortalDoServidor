@@ -1,16 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Resumo } from './resumo';
-import { Observable } from 'rxjs';
 import { Profile, Contrato } from '../profile/profile';
 import { ProfileService } from '../profile/profile-service';
-import { Storage } from '@ionic/storage';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 @Injectable()
 export class PagamentoService {
 
-  constructor(public http: HttpClient, private profileService: ProfileService, private angularFireAuth: AngularFireAuth,) {
+  constructor(
+    public http: HttpClient,
+    private profileService: ProfileService,
+    private angularFireAuth: AngularFireAuth, private transfer: FileTransfer) {
   }
 
   obtenhaResumo(perfil: Profile) {
@@ -20,34 +22,20 @@ export class PagamentoService {
     } else {
       return this.obtenhaResumoInterno(perfil);
     }
-  }  
-  private teste1() {
-    return new Observable<string>(observer => {
-      observer.next("string");
-      observer.complete();
-    });
-  }
-
-  private teste2(x) {
-    return new Observable<number>(observer => {
-      observer.next(1);
-      observer.complete();
-    });
   }
 
   atualizeContratoPadraoComOPrimeiroDaLista(perfil: Profile) {
     return this.obtenhaContratos(perfil)
      .map(contratos => {
-          if (contratos) 
-          {
+          if (contratos) {
            perfil.contratopadrao = new Contrato();
            perfil.contratopadrao.empresa = contratos[0].empresa;
            perfil.contratopadrao.matricula = contratos[0].matricula;
-         
+
            return perfil;
-          }      
+          }
       })
-     .flatMap(perfil => this.teste(perfil));
+     .flatMap(p => this.teste(p));
   }
 
 
@@ -55,37 +43,44 @@ export class PagamentoService {
     return this.angularFireAuth.authState.map(user => this.profileService.salve(user.uid, perfil));
   }
 
-  obtenhaContratos(perfil: Profile) {    
+  obtenhaPDF(perfil: Profile, mesano: string, path) {
+    const transfer = this.transfer.create();
+    return transfer.download(
+    `http://localhost:84/api/contracheque/ObtenhaPDF?cpf=${perfil.cpf}`
+    + `&empresa=${perfil.contratopadrao.empresa}&matricula=${perfil.contratopadrao.matricula}&mesAno=${mesano}`,
+      path + 'myfile.pdf');
+  }
+
+  obtenhaContratos(perfil: Profile) {
     return this.http.get(`http://localhost:84/api/contracheque/ObtenhaContratos?cpf=${perfil.cpf}`)
     .map(result => this.buildContratos(result));
   }
 
   AtualizeContratoPadrao(perfil: Profile) {
     const subscription = this.angularFireAuth.authState.subscribe(user => {
-      this.profileService.salve(user.uid, perfil);      
+      this.profileService.salve(user.uid, perfil);
        subscription.unsubscribe();
     });
   }
 
   private obtenhaResumoInterno(perfil: Profile) {
-    return this.http.get(`http://localhost:84/api/contracheque/ObtenhaResumos?cpf=${perfil.cpf}&empresa=${perfil.contratopadrao.empresa}&matricula=${perfil.contratopadrao.matricula}`)
+    return this.http
+    .get(`http://localhost:84/api/contracheque/ObtenhaResumos?`
+    + `cpf=${perfil.cpf}&empresa=${perfil.contratopadrao.empresa}&matricula=${perfil.contratopadrao.matricula}`)
     .map(result => this.buildItens(result));
   }
-
-  
 
   private buildContratos(itens) {
     const result = JSON.parse(itens);
     const contratos: Contrato[] = [];
 
-    result.forEach(element => {    
+    result.forEach(element => {
       const contrato = new Contrato();
       contrato.empresa = element.Empresa;
       contrato.matricula = element.Matricula;
-      contratos.push(contrato);      
+      contratos.push(contrato);
     });
 
-    // console.log(contratos);
     return contratos;
   }
 
@@ -97,24 +92,24 @@ export class PagamentoService {
     result.forEach(element => {
       const resumo = new Resumo();
       resumo.mes = element.Referencia;
-      
+
       element.Valores.forEach(valor => {
         switch (valor.Codigo) {
           case '9997':
-            resumo.salarioBruto = valor.Valor;      
+            resumo.salarioBruto = valor.Valor;
             break;
           case '9998':
-            resumo.descontos = valor.Valor;      
+            resumo.descontos = valor.Valor;
             break;
           case '9999':
-            resumo.salarioLiquido = valor.Valor;      
+            resumo.salarioLiquido = valor.Valor;
             break;
           default:
             break;
         }
       });
-      
-      resumos.push(resumo);      
+
+      resumos.push(resumo);
     });
 
     return resumos;
