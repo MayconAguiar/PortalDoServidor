@@ -5,6 +5,7 @@ import { Profile, Contrato } from '../profile/profile';
 import { ProfileService } from '../profile/profile-service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { environment as ENV } from '../../environments/environment' ;
 
 @Injectable()
 export class PagamentoService {
@@ -44,15 +45,20 @@ export class PagamentoService {
   }
 
   obtenhaPDF(perfil: Profile, mesano: string, path) {
-    const transfer = this.transfer.create();
-    return transfer.download(
-    `http://localhost:84/api/contracheque/ObtenhaPDF?cpf=${perfil.cpf}`
-    + `&empresa=${perfil.contratopadrao.empresa}&matricula=${perfil.contratopadrao.matricula}&mesAno=${mesano}`,
-      path + 'myfile.pdf');
+    // const transfer = this.transfer.create();
+    // return transfer.download(
+    // `http://localhost:84/api/contracheque/ObtenhaPDF?cpf=${perfil.cpf}`
+    // + `&empresa=${perfil.contratopadrao.empresa}&matricula=${perfil.contratopadrao.matricula}&mesAno=${mesano}`,
+    //   path + 'myfile.pdf');
+
+      const url = `${this.obtenhaUrl()}/contracheque/ObtenhaPDF?cpf=${perfil.cpf}`
+      + `&empresa=${perfil.contratopadrao.empresa}&matricula=${perfil.contratopadrao.matricula}&mesAno=${mesano}`;
+
+      return this.http.get(url, { responseType: 'blob' });
   }
 
   obtenhaContratos(perfil: Profile) {
-    return this.http.get(`http://localhost:84/api/contracheque/ObtenhaContratos?cpf=${perfil.cpf}`)
+    return this.http.get(`${this.obtenhaUrl()}/contracheque/ObtenhaContratos?cpf=${perfil.cpf}`)
     .map(result => this.buildContratos(result));
   }
 
@@ -63,9 +69,13 @@ export class PagamentoService {
     });
   }
 
+  private obtenhaUrl() {
+    return ENV.BASE_URL;
+  }
+
   private obtenhaResumoInterno(perfil: Profile) {
     return this.http
-    .get(`http://localhost:84/api/contracheque/ObtenhaResumos?`
+    .get(`${this.obtenhaUrl()}/contracheque/ObtenhaResumos?`
     + `cpf=${perfil.cpf}&empresa=${perfil.contratopadrao.empresa}&matricula=${perfil.contratopadrao.matricula}`)
     .map(result => this.buildItens(result));
   }

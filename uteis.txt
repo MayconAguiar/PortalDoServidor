@@ -27,3 +27,5 @@ Also this fix is persistent compared with manually change the version directly i
 
 cordova plugin add cordova-android-support-gradle-release --fetch  
 Also you may have a look into the documentation and other related issue here
+
+https://scotch.io/@chaitanyamankala/adding-environment-for-ionic-23-projects
