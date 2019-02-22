@@ -25,7 +25,13 @@ Easiest fix is by installing "cordova-android-support-gradle-release" plugin. Th
 
 Also this fix is persistent compared with manually change the version directly into the plugin.
 
-cordova plugin add cordova-android-support-gradle-release --fetch  
+cordova plugin add cordova-android-support-gradle-release --fetch
 Also you may have a look into the documentation and other related issue here
 
 https://scotch.io/@chaitanyamankala/adding-environment-for-ionic-23-projects
+
+
+publicar no github
+instalar npm i angular-cli-ghpages --save
+ionic build --prod -- --base-href "https://mayconaguiar.github.io/PortalDoServidor/"
+ngh
